@@ -1,0 +1,96 @@
+.heart-loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hearts-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  animation: float-up 4s ease-in infinite;
+  opacity: 0;
+}
+
+.heart-1 {
+  left: 5%;
+  animation-delay: 0s;
+  font-size: 1.5rem;
+}
+
+.heart-2 {
+  left: 20%;
+  animation-delay: 0.8s;
+  font-size: 2.5rem;
+}
+
+.heart-3 {
+  left: 35%;
+  animation-delay: 1.6s;
+  font-size: 1.8rem;
+}
+
+.heart-4 {
+  left: 50%;
+  animation-delay: 2.4s;
+  font-size: 2.2rem;
+}
+
+.heart-5 {
+  left: 65%;
+  animation-delay: 3.2s;
+  font-size: 1.6rem;
+}
+
+.heart-6 {
+  left: 80%;
+  animation-delay: 1.2s;
+  font-size: 2rem;
+}
+
+.heart-7 {
+  left: 95%;
+  animation-delay: 2s;
+  font-size: 1.7rem;
+}
+
+@keyframes float-up {
+  0% {
+    bottom: -10%;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(20px) rotate(360deg);
+  }
+}

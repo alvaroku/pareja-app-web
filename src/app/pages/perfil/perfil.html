@@ -1,0 +1,63 @@
+<div class="px-4 py-6 min-h-full">
+  <h2 class="text-2xl font-bold mb-6">Perfil</h2>
+  @if (errorMessage) {
+    <div class="mb-4 p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
+      <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+    </div>
+  }
+div>
+
+  <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl mb-6">
+    <div class="flex flex-col items-center">
+      <div class="w-24 h-24 bg-white/30 rounded-full mb-4"></div>
+      <h3 class="text-xl font-semibold">{{ currentUser?.nombre || 'Usuario' }}</h3>
+      <p class="text-sm opacity-80">Juntos desde: 1 Enero 2023</p>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 shadow-xl">
+      <h3 class="font-semibold mb-2">Información</h3>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span class="opacity-80">Nombre:</span>
+          <span class="font-semibold">{{ currentUser?.nombre || '-' }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-80">Email:</span>
+          <span class="font-semibold">{{ currentUser?.email || '-' }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-80">Días juntos:</span>
+          <span class="font-semibold">{{ daysCount }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 shadow-xl">
+      <h3 class="font-semibold mb-3">Estadísticas</h3>
+      <div class="grid grid-cols-3 gap-3 text-center">
+        <div>
+          <p class="text-2xl font-bold">12</p>
+          <p class="text-xs opacity-80">Citas</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold">5</p>
+          <p class="text-xs opacity-80">Metas</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold">48</p>
+          <p class="text-xs opacity-80">Fotos</p>
+        </div>
+      </div>
+    </div>
+
+    <button  class="w-full py-3 bg-white/20 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow">
+      Editar Perfil
+    </button>
+
+    <button (click)="logout()" class="w-full py-3 bg-red-400/80 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-red-500/80 transition-all shadow mb-8">
+      Cerrar Sesión
+    </button>
+  </div>
+</div>

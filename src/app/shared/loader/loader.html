@@ -1,0 +1,22 @@
+@if (loading$ | async) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-pink-400 via-purple-400 to-indigo-400">
+    <div class="text-center">
+      <!-- Corazón animado principal -->
+      <div class="relative">
+        <div class="heart-loader"></div>
+      </div>
+      <!-- Texto -->
+      <p class="mt-8 text-white text-xl font-semibold animate-pulse">Cargando...</p>
+      <!-- Corazones flotantes -->
+      <div class="hearts-container">
+        <div class="heart heart-1">💗</div>
+        <div class="heart heart-2">💕</div>
+        <div class="heart heart-3">💖</div>
+        <div class="heart heart-4">💓</div>
+        <div class="heart heart-5">💗</div>
+        <div class="heart heart-6">💕</div>
+        <div class="heart heart-7">💖</div>
+      </div>
+    </div>
+  </div>
+}

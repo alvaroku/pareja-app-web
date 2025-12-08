@@ -1,0 +1,77 @@
+<div
+  class="flex flex-col h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-indigo-400 font-sans text-white overflow-hidden"
+  >
+  <app-loader></app-loader>
+
+  <!-- Header Mobile -->
+  <header class="flex items-center justify-between p-4 flex-shrink-0">
+    <h1 class="text-xl font-bold">Pareja</h1>
+    <button (click)="toggleMenu()" class="text-white text-2xl">☰</button>
+  </header>
+
+  <!-- Menú lateral -->
+  <div
+    [class.-translate-x-full]="!menuOpen"
+    [class.translate-x-0]="menuOpen"
+    class="fixed top-0 left-0 h-full w-64 bg-white/20 backdrop-blur-xl text-white p-6 shadow-xl transition-transform duration-300 z-50"
+    >
+    <h2 class="text-xl font-semibold mb-4">Menú</h2>
+    <ul class="space-y-4 text-lg">
+      <li>
+        <a
+          routerLink="/app/home"
+          routerLinkActive="opacity-100 font-bold"
+          class="block hover:opacity-80"
+          >Inicio</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/app/citas"
+            routerLinkActive="opacity-100 font-bold"
+            class="block hover:opacity-80"
+            >Citas</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/app/metas"
+              routerLinkActive="opacity-100 font-bold"
+              class="block hover:opacity-80"
+              >Metas</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/app/memorias"
+                routerLinkActive="opacity-100 font-bold"
+                class="block hover:opacity-80"
+                >Memorias</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/app/perfil"
+                  routerLinkActive="opacity-100 font-bold"
+                  class="block hover:opacity-80"
+                  >Perfil</a
+                  >
+                </li>
+                <li>
+                  <button (click)="logout()" class="block hover:opacity-80 text-red-300 w-full text-left">
+                    Cerrar Sesión
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Overlay para cerrar menú -->
+            @if (menuOpen) {
+              <div (click)="toggleMenu()" class="fixed inset-0 bg-black/20 z-40"></div>
+            }
+
+            <!-- Contenido principal -->
+            <main class="flex-1 overflow-y-auto">
+              <router-outlet></router-outlet>
+            </main>
+          </div>

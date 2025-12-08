@@ -1,0 +1,71 @@
+<div class="flex items-center justify-center min-h-screen p-4">
+  <div class="w-full max-w-md">
+    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
+      <h2 class="text-3xl font-bold text-center mb-6">Iniciar Sesión</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="space-y-4">
+        @if (errorMessage) {
+          <div class="p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
+            <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+          </div>
+        }
+
+        <div>
+          <label class="block text-sm font-semibold mb-2">Email</label>
+          <input
+            type="email"
+            formControlName="email"
+            [class.ring-2]="submitted && f['email'].errors"
+            [class.ring-red-400]="submitted && f['email'].errors"
+            class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+            placeholder="tu@email.com">
+            @if (submitted && f['email'].errors) {
+              <div class="mt-2">
+                @if (f['email'].errors['required']) {
+                  <p class="text-red-200 text-sm">El email es requerido</p>
+                }
+                @if (f['email'].errors['email']) {
+                  <p class="text-red-200 text-sm">El email no es válido</p>
+                }
+              </div>
+            }
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2">Contraseña</label>
+            <input
+              type="password"
+              formControlName="password"
+              [class.ring-2]="submitted && f['password'].errors"
+              [class.ring-red-400]="submitted && f['password'].errors"
+              class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+              placeholder="••••••••">
+              @if (submitted && f['password'].errors) {
+                <div class="mt-2">
+                  @if (f['password'].errors['required']) {
+                    <p class="text-red-200 text-sm">La contraseña es requerida</p>
+                  }
+                  @if (f['password'].errors['minlength']) {
+                    <p class="text-red-200 text-sm">La contraseña debe tener al menos 6 caracteres</p>
+                  }
+                </div>
+              }
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg disabled:opacity-50"
+              [disabled]="submitted && loginForm.invalid">
+              Entrar
+            </button>
+          </form>
+
+          <div class="mt-6 text-center">
+            <p class="text-sm">
+              ¿No tienes cuenta?
+              <a routerLink="/register" class="font-bold hover:underline">Regístrate aquí</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
