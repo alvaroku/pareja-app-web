@@ -5,6 +5,7 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { AuthService } from '../../../../services/auth.service';
 import { LoaderService } from '../../../../services/loader.service';
 import { Usuario } from '../../../../models/usuario.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,12 +15,12 @@ import { Usuario } from '../../../../models/usuario.model';
   styleUrl: './edit-profile.css',
 })
 export class EditProfileComponent implements OnInit {
-  public dialogRef = inject(DialogRef);
+  public dialogRef = inject(DialogRef, { optional: true });
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private loaderService = inject(LoaderService);
   public data = inject<Usuario>(DIALOG_DATA);
-
+  public toastr = inject(ToastrService);
   editForm!: FormGroup;
   submitted = false;
   errorMessage = '';
@@ -39,8 +40,8 @@ export class EditProfileComponent implements OnInit {
     return this.editForm.controls;
   }
 
-  closeModal() {
-    this.dialogRef.close();
+  closeModal(result?: boolean) {
+    this.dialogRef?.close(result);
   }
 
   onSubmit() {
@@ -57,11 +58,8 @@ export class EditProfileComponent implements OnInit {
     this.authService.updateProfile(this.userId, nombre, email, codigoPais, telefono).subscribe({
       next: (response) => {
         this.loaderService.hideLoading();
-        if (response.isSuccess) {
-          this.dialogRef.close(true);
-        } else {
-          this.errorMessage = response.message || 'Error al actualizar el perfil';
-        }
+        this.toastr.success(response.message, 'Éxito');
+        this.closeModal(true);
       },
       error: (error) => {
         this.loaderService.hideLoading();
