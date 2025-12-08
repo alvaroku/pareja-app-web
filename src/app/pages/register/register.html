@@ -52,6 +52,32 @@
               }
             </div>
 
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="block text-sm font-semibold mb-2">Código</label>
+                <select
+                  formControlName="codigoPais"
+                  class="w-full px-2 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                  <option value="" class="bg-purple-600">-</option>
+                  <option value="+1" class="bg-purple-600">+1</option>
+                  <option value="+52" class="bg-purple-600">+52</option>
+                  <option value="+34" class="bg-purple-600">+34</option>
+                  <option value="+54" class="bg-purple-600">+54</option>
+                  <option value="+55" class="bg-purple-600">+55</option>
+                  <option value="+57" class="bg-purple-600">+57</option>
+                  <option value="+58" class="bg-purple-600">+58</option>
+                </select>
+              </div>
+              <div class="col-span-2">
+                <label class="block text-sm font-semibold mb-2">Teléfono</label>
+                <input
+                  type="tel"
+                  formControlName="telefono"
+                  class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  placeholder="1234567890">
+              </div>
+            </div>
+
             <div>
               <label class="block text-sm font-semibold mb-2">Contraseña</label>
               <input

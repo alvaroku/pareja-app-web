@@ -2,9 +2,8 @@ export interface Usuario {
   id: number;
   nombre: string;
   email: string;
-  parejaId?: number;
-  createdAt: Date;
-  updatedAt: Date;
+  codigoPais?: string;
+  telefono?: string;
 }
 
 export interface LoginDto {
@@ -17,9 +16,15 @@ export interface RegisterDto {
   email: string;
   password: string;
   confirmPassword: string;
+  codigoPais?: string;
+  telefono?: string;
 }
 
 export interface LoginResponse {
-  usuario: Usuario;
+  id: number;
+  nombre: string;
+  email: string;
+  codigoPais?: string;
+  telefono?: string;
   token: string;
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Dialog } from '@angular/cdk/dialog';
 import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { LoaderService } from '../../services/loader.service';
 import { Usuario } from '../../models/usuario.model';
+import { EditProfileComponent } from './components/edit/edit-profile';
 
 @Component({
   selector: 'app-perfil',
@@ -21,7 +23,7 @@ export class PerfilComponent implements OnInit {
     private authService: AuthService,
     private usuarioService: UsuarioService,
     private loaderService: LoaderService,
-
+    private dialog: Dialog
   ) {}
 
   ngOnInit() {
@@ -30,13 +32,24 @@ export class PerfilComponent implements OnInit {
     const diff = now.getTime() - anniversary.getTime();
     this.daysCount = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    this.authService.currentUser$.subscribe(user => {
-      this.currentUser = user;
+      this.authService.currentUser$.subscribe(user => {
+       this.currentUser = user;
+     }); }
+
+  openEditModal() {
+    if (!this.currentUser) return;
+
+    const dialogRef = this.dialog.open(EditProfileComponent, {
+      data: this.currentUser,
+      width: '500px',
+    });
+
+    dialogRef.closed.subscribe((result) => {
+      if (result) {
+        // Profile updated successfully
+      }
     });
   }
-
-
-
 
   logout() {
     this.authService.logout();

@@ -51,7 +51,7 @@ export class AuthService {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('currentUser', JSON.stringify(response.data));
             this.tokenSubject.next(response.data.token);
-            this.currentUserSubject.next(response.data.usuario);
+            this.currentUserSubject.next(response.data as Usuario);
           }
         })
       );
@@ -63,16 +63,16 @@ export class AuthService {
         tap(response => {
           if (response.isSuccess && response.data) {
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('currentUser', JSON.stringify(response.data.usuario));
+            localStorage.setItem('currentUser', JSON.stringify(response.data));
             this.tokenSubject.next(response.data.token);
-            this.currentUserSubject.next(response.data.usuario);
+            this.currentUserSubject.next(response.data);
           }
         })
       );
   }
 
-  updateProfile(id: number, nombre: string, email: string): Observable<ApiResponse<Usuario>> {
-    return this.http.put<ApiResponse<Usuario>>(`${environment.apiUrl}/usuarios/${id}`, { id, nombre, email })
+  updateProfile(id: number, nombre: string, email: string, codigoPais?: string, telefono?: string): Observable<ApiResponse<Usuario>> {
+    return this.http.put<ApiResponse<Usuario>>(`${environment.apiUrl}/usuarios/${id}`, { id, nombre, email, codigoPais, telefono })
       .pipe(
         tap(response => {
           if (response.isSuccess && response.data) {

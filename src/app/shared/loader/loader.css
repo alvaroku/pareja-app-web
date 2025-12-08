@@ -94,3 +94,7 @@
     transform: translateX(20px) rotate(360deg);
   }
 }
+
+.overlay{
+  z-index: 9999;
+}

@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { AuthService } from '../../../../services/auth.service';
 import { LoaderService } from '../../../../services/loader.service';
+import { Usuario } from '../../../../models/usuario.model';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,10 +14,11 @@ import { LoaderService } from '../../../../services/loader.service';
   styleUrl: './edit-profile.css',
 })
 export class EditProfileComponent implements OnInit {
+  public dialogRef = inject(DialogRef);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private loaderService = inject(LoaderService);
-
+  public data = inject<Usuario>(DIALOG_DATA);
 
   editForm!: FormGroup;
   submitted = false;
@@ -23,14 +26,12 @@ export class EditProfileComponent implements OnInit {
   userId: number = 0;
 
   ngOnInit() {
-    this.authService.currentUser$.subscribe(user => {
-      if (user) {
-        this.userId = user.id;
-        this.editForm = this.fb.group({
-          nombre: [user.nombre, [Validators.required, Validators.minLength(3)]],
-          email: [user.email, [Validators.required, Validators.email]]
-        });
-      }
+    this.userId = this.data.id;
+    this.editForm = this.fb.group({
+      nombre: [this.data.nombre, [Validators.required, Validators.minLength(3)]],
+      email: [this.data.email, [Validators.required, Validators.email]],
+      codigoPais: [this.data.codigoPais || ''],
+      telefono: [this.data.telefono || '']
     });
   }
 
@@ -38,6 +39,9 @@ export class EditProfileComponent implements OnInit {
     return this.editForm.controls;
   }
 
+  closeModal() {
+    this.dialogRef.close();
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -48,13 +52,13 @@ export class EditProfileComponent implements OnInit {
     }
 
     this.loaderService.showLoading();
-    const { nombre, email } = this.editForm.value;
+    const { nombre, email, codigoPais, telefono } = this.editForm.value;
 
-    this.authService.updateProfile(this.userId, nombre, email).subscribe({
+    this.authService.updateProfile(this.userId, nombre, email, codigoPais, telefono).subscribe({
       next: (response) => {
         this.loaderService.hideLoading();
         if (response.isSuccess) {
-
+          this.dialogRef.close(true);
         } else {
           this.errorMessage = response.message || 'Error al actualizar el perfil';
         }

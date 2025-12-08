@@ -1,11 +1,10 @@
-<div class="px-4 py-6 min-h-full">
+<div class="px-4 py-6">
   <h2 class="text-2xl font-bold mb-6">Perfil</h2>
   @if (errorMessage) {
-    <div class="mb-4 p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
-      <p class="text-red-100 text-sm">{{ errorMessage }}</p>
-    </div>
+  <div class="mb-4 p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
+    <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+  </div>
   }
-div>
 
   <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl mb-6">
     <div class="flex flex-col items-center">
@@ -28,8 +27,10 @@ div>
           <span class="font-semibold">{{ currentUser?.email || '-' }}</span>
         </div>
         <div class="flex justify-between">
-          <span class="opacity-80">Días juntos:</span>
-          <span class="font-semibold">{{ daysCount }}</span>
+          <span class="opacity-80">Teléfono:</span>
+          <span class="font-semibold">{{
+            (currentUser?.codigoPais ?? '') + ' ' + (currentUser?.telefono ?? '')
+          }}</span>
         </div>
       </div>
     </div>
@@ -52,11 +53,17 @@ div>
       </div>
     </div>
 
-    <button  class="w-full py-3 bg-white/20 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow">
+    <button
+      (click)="openEditModal()"
+      class="w-full py-3 bg-white/20 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow"
+    >
       Editar Perfil
     </button>
 
-    <button (click)="logout()" class="w-full py-3 bg-red-400/80 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-red-500/80 transition-all shadow mb-8">
+    <button
+      (click)="logout()"
+      class="w-full py-3 bg-red-400/80 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-red-500/80 transition-all shadow mb-8"
+    >
       Cerrar Sesión
     </button>
   </div>
