@@ -7,6 +7,7 @@ import { LoaderService } from '../../services/loader.service';
 
 import { Cita } from '../../models/cita.model';
 import { CreateEditCitaComponent } from './components/create-edit-cita/create-edit-cita';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -86,21 +87,33 @@ export class CitasComponent implements OnInit {
   }
 
   deleteCita(id: number) {
-    if (!confirm('¿Estás seguro de eliminar esta cita?')) return;
-
-    this.loaderService.showLoading();
-
-    this.citaService.delete(id).subscribe({
-      next: (response) => {
-        this.loaderService.hideLoading();
-        this.toastService.success(response.message);
-        this.loadCitas();
-      },
-      error: (error) => {
-        this.loaderService.hideLoading();
-        this.toastService.error(error.error?.message || 'Error de conexión con el servidor');
-        console.error('Error:', error);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Eliminar Cita',
+        message: '¿Estás seguro de que deseas eliminar esta cita?',
+        confirmText: 'Eliminar',
+        cancelText: 'Cancelar',
+        isDanger: true
       }
+    });
+
+    dialogRef.closed.subscribe((confirmed) => {
+      if (!confirmed) return;
+
+      this.loaderService.showLoading();
+
+      this.citaService.delete(id).subscribe({
+        next: (response) => {
+          this.loaderService.hideLoading();
+          this.toastService.success(response.message);
+          this.loadCitas();
+        },
+        error: (error) => {
+          this.loaderService.hideLoading();
+          this.toastService.error(error.error?.message || 'Error de conexión con el servidor');
+          console.error('Error:', error);
+        }
+      });
     });
   }
 }

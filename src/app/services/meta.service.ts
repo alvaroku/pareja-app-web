@@ -32,6 +32,10 @@ export class MetaService {
     return this.http.get<ApiResponse<Meta[]>>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
 
+  getMisMetas(): Observable<ApiResponse<Meta[]>> {
+    return this.http.get<ApiResponse<Meta[]>>(`${this.apiUrl}/mis-metas`);
+  }
+
   create(meta: CreateMetaDto): Observable<ApiResponse<Meta>> {
     return this.http.post<ApiResponse<Meta>>(`${this.apiUrl}`, meta);
   }
