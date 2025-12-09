@@ -9,11 +9,12 @@ import { Cita } from '../../models/cita.model';
 import { CreateEditCitaComponent } from './components/create-edit-cita/create-edit-cita';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog';
 import { ToastrService } from 'ngx-toastr';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   standalone: true,
   selector: 'app-citas',
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, LucideAngularModule],
   templateUrl: './citas.html',
   styleUrl: './citas.css',
 })

@@ -8,11 +8,12 @@ import { Meta, EstadoMeta, getEstadoMetaNombre } from '../../models/meta.model';
 import { CreateEditMetaComponent } from './components/create-edit-meta/create-edit-meta';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog';
 import { ToastrService } from 'ngx-toastr';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   standalone: true,
   selector: 'app-metas',
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './metas.html',
   styleUrl: './metas.css',
 })

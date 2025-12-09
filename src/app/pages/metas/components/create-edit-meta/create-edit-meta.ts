@@ -6,11 +6,12 @@ import { MetaService } from '../../../../services/meta.service';
 import { LoaderService } from '../../../../services/loader.service';
 import { ToastrService } from 'ngx-toastr';
 import { Meta, CreateMetaDto, UpdateMetaDto, EstadoMeta } from '../../../../models/meta.model';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: 'app-create-edit-meta',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './create-edit-meta.html',
   styleUrl: './create-edit-meta.css',
 })

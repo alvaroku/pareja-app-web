@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 import { LoaderService } from '../../services/loader.service';
 import { AuthService } from '../../services/auth.service';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

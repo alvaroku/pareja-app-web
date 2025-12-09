@@ -7,6 +7,7 @@ import { Memoria } from '../../../models/memoria.model';
 import { MemoriaService } from '../../../services/memoria.service';
 import { AuthService } from '../../../services/auth.service';
 import { LoaderService } from '../../../services/loader.service';
+import { LucideAngularModule } from 'lucide-angular';
 
 export interface CreateEditMemoriaData {
   memoria?: Memoria;
@@ -15,77 +16,99 @@ export interface CreateEditMemoriaData {
 @Component({
   selector: 'app-create-edit-memoria',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
   template: `
     <div class="modal-backdrop" (click)="dialogRef.close()"></div>
     <div class="modal-container" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>{{ isEdit ? 'Editar Memoria' : 'Nueva Memoria' }}</h2>
-        <button class="close-btn" (click)="dialogRef.close()">&times;</button>
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl">
+            <lucide-icon name="camera" class="text-white" [size]="28"></lucide-icon>
+          </div>
+          <h2 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+            {{ isEdit ? 'Editar Memoria' : 'Nueva Memoria' }}
+          </h2>
+        </div>
+        <button class="close-btn" (click)="dialogRef.close()">
+          <lucide-icon name="x" [size]="24"></lucide-icon>
+        </button>
       </div>
 
       <form [formGroup]="memoriaForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="titulo">Título *</label>
+          <label for="titulo" class="block text-sm font-semibold text-gray-700 mb-2">Título *</label>
           <input
             id="titulo"
             type="text"
             formControlName="titulo"
             placeholder="Título de la memoria"
-            [class.error]="memoriaForm.get('titulo')?.invalid && memoriaForm.get('titulo')?.touched"
+            class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
+            [class.border-red-500]="memoriaForm.get('titulo')?.invalid && memoriaForm.get('titulo')?.touched"
+            [class.border-gray-200]="!memoriaForm.get('titulo')?.invalid || !memoriaForm.get('titulo')?.touched"
           />
-          <small class="error-message" *ngIf="memoriaForm.get('titulo')?.invalid && memoriaForm.get('titulo')?.touched">
+          <small class="text-red-500 text-xs mt-1 block" *ngIf="memoriaForm.get('titulo')?.invalid && memoriaForm.get('titulo')?.touched">
             El título es requerido (mínimo 3 caracteres)
           </small>
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripción</label>
+          <label for="descripcion" class="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
           <textarea
             id="descripcion"
             formControlName="descripcion"
             placeholder="Descripción de la memoria"
             rows="4"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
           ></textarea>
         </div>
 
         <div class="form-group">
-          <label for="fechaMemoria">Fecha *</label>
+          <label for="fechaMemoria" class="block text-sm font-semibold text-gray-700 mb-2">Fecha *</label>
           <input
             id="fechaMemoria"
             type="date"
             formControlName="fechaMemoria"
-            [class.error]="memoriaForm.get('fechaMemoria')?.invalid && memoriaForm.get('fechaMemoria')?.touched"
+            class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
+            [class.border-red-500]="memoriaForm.get('fechaMemoria')?.invalid && memoriaForm.get('fechaMemoria')?.touched"
+            [class.border-gray-200]="!memoriaForm.get('fechaMemoria')?.invalid || !memoriaForm.get('fechaMemoria')?.touched"
           />
-          <small class="error-message" *ngIf="memoriaForm.get('fechaMemoria')?.invalid && memoriaForm.get('fechaMemoria')?.touched">
+          <small class="text-red-500 text-xs mt-1 block" *ngIf="memoriaForm.get('fechaMemoria')?.invalid && memoriaForm.get('fechaMemoria')?.touched">
             La fecha es requerida
           </small>
         </div>
 
         <div class="form-group">
-          <label for="file">Foto</label>
+          <label for="file" class="block text-sm font-semibold text-gray-700 mb-2">Foto</label>
           <input
             id="file"
             type="file"
             accept="image/*"
             (change)="onFileSelected($event)"
+            class="w-full px-4 py-2 rounded-xl border-2 border-gray-200 transition-all duration-200 focus:outline-none focus:border-pink-500"
           />
-          <small class="hint">{{ isEdit ? 'Selecciona una nueva foto para reemplazar la actual' : 'Puedes subir la foto después de crear la memoria' }}</small>
+          <small class="text-gray-500 text-xs mt-1 block">{{ isEdit ? 'Selecciona una nueva foto para reemplazar la actual' : 'Puedes subir la foto después de crear la memoria' }}</small>
 
-          <div *ngIf="selectedFile()" class="file-preview">
-            <p>📷 {{ selectedFile()!.name }} ({{ formatFileSize(selectedFile()!.size) }})</p>
+          <div *ngIf="selectedFile()" class="mt-3 p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200">
+            <div class="flex items-center gap-2 text-pink-600">
+              <lucide-icon name="camera" [size]="20"></lucide-icon>
+              <p class="font-medium">{{ selectedFile()!.name }} ({{ formatFileSize(selectedFile()!.size) }})</p>
+            </div>
           </div>
 
-          <div *ngIf="data.memoria?.resource && !selectedFile()" class="current-image">
-            <img [src]="data.memoria?.resource?.urlPublica" [alt]="data.memoria?.titulo" />
+          <div *ngIf="data.memoria?.resource && !selectedFile()" class="mt-3 rounded-xl overflow-hidden border-2 border-gray-200">
+            <img [src]="data.memoria?.resource?.urlPublica" [alt]="data.memoria?.titulo" class="w-full h-48 object-cover" />
           </div>
         </div>
 
-        <div class="modal-actions">
-          <button type="button" class="btn-secondary" (click)="dialogRef.close()">
+        <div class="flex gap-3 justify-end mt-6">
+          <button type="button"
+                  class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all duration-200"
+                  (click)="dialogRef.close()">
             Cancelar
           </button>
-          <button type="submit" class="btn-primary" [disabled]="memoriaForm.invalid || isSubmitting()">
+          <button type="submit"
+                  class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  [disabled]="memoriaForm.invalid || isSubmitting()">
             {{ isSubmitting() ? 'Guardando...' : (isEdit ? 'Actualizar' : 'Crear') }}
           </button>
         </div>
@@ -96,9 +119,15 @@ export interface CreateEditMemoriaData {
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(8px);
       z-index: 1000;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-container {
@@ -106,170 +135,60 @@ export interface CreateEditMemoriaData {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(20px);
-      border-radius: 20px;
+      border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
       padding: 2rem;
       width: 90%;
-      max-width: 500px;
+      max-width: 550px;
       max-height: 90vh;
       overflow-y: auto;
       z-index: 1001;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      color: #333;
-      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(236, 72, 153, 0.1);
     }
 
     .close-btn {
       background: none;
       border: none;
-      font-size: 2rem;
-      color: #666;
+      color: #9ca3af;
       cursor: pointer;
-      padding: 0;
-      width: 32px;
-      height: 32px;
+      padding: 0.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      transition: all 0.2s ease;
     }
 
     .close-btn:hover {
-      background: rgba(0, 0, 0, 0.1);
-      color: #333;
+      background: rgba(236, 72, 153, 0.1);
+      color: #ec4899;
     }
 
     .form-group {
       margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #555;
-      font-weight: 500;
-    }
-
-    .form-group input[type="text"],
-    .form-group input[type="date"],
-    .form-group textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.8);
-    }
-
-    .form-group input[type="file"] {
-      width: 100%;
-      padding: 0.5rem;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #ff6b9d;
-      background: white;
-    }
-
-    .form-group input.error,
-    .form-group textarea.error {
-      border-color: #ff4444;
-    }
-
-    .error-message {
-      color: #ff4444;
-      font-size: 0.85rem;
-      margin-top: 0.25rem;
-      display: block;
-    }
-
-    .hint {
-      color: #666;
-      font-size: 0.85rem;
-      margin-top: 0.25rem;
-      display: block;
-    }
-
-    .file-preview {
-      margin-top: 0.5rem;
-      padding: 0.75rem;
-      background: rgba(255, 107, 157, 0.1);
-      border-radius: 8px;
-      color: #ff6b9d;
-    }
-
-    .file-preview p {
-      margin: 0;
-    }
-
-    .current-image {
-      margin-top: 1rem;
-    }
-
-    .current-image img {
-      max-width: 100%;
-      max-height: 200px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: flex-end;
-      margin-top: 2rem;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-
-    .btn-primary:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .btn-secondary {
-      background: #f0f0f0;
-      color: #666;
-    }
-
-    .btn-secondary:hover {
-      background: #e0e0e0;
     }
   `]
 })

@@ -6,11 +6,12 @@ import { CitaService } from '../../../../services/cita.service';
 import { LoaderService } from '../../../../services/loader.service';
 import { Cita, CreateCitaDto, UpdateCitaDto } from '../../../../models/cita.model';
 import { ToastrService } from 'ngx-toastr';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: 'app-create-edit-cita',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './create-edit-cita.html',
   styleUrl: './create-edit-cita.css',
 })

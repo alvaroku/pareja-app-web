@@ -1,38 +1,39 @@
-<div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl">
-  <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
-    <span></span>
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20">
+  <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+    <lucide-icon name="heart" class="text-pink-500" [size]="24"></lucide-icon>
     <span>Mi Pareja</span>
   </h3>
 
   @if (errorMessage) {
-    <div class="p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50 mb-4">
-      <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+    <div class="p-4 bg-red-50/90 backdrop-blur-sm rounded-2xl border border-red-200 mb-4">
+      <p class="text-red-600 text-sm">{{ errorMessage }}</p>
     </div>
   }
 
   @if (successMessage) {
-    <div class="p-3 bg-green-500/20 backdrop-blur-sm rounded-lg border border-green-400/50 mb-4">
-      <p class="text-green-100 text-sm">{{ successMessage }}</p>
+    <div class="p-4 bg-green-50/90 backdrop-blur-sm rounded-2xl border border-green-200 mb-4">
+      <p class="text-green-600 text-sm">{{ successMessage }}</p>
     </div>
   }
 
   <!-- Pareja Activa -->
   @if (pareja && pareja.estado === EstadoInvitacion.Aceptada) {
-    <div class="space-y-4">
-      <div class="bg-white/10 rounded-xl p-4">
+    <div class="space-y-3">
+      <div class="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-5">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-white/70">Pareja actual</p>
-            <p class="text-xl font-bold">{{ getNombrePareja() }}</p>
-            <p class="text-sm text-white/60">{{ getEmailPareja() }}</p>
+            <p class="text-xs text-gray-600 font-medium uppercase tracking-wide mb-1">Pareja actual</p>
+            <p class="text-xl font-bold text-gray-800">{{ getNombrePareja() }}</p>
+            <p class="text-sm text-gray-600 mt-1">{{ getEmailPareja() }}</p>
           </div>
-          <div class="text-4xl"></div>
+          <lucide-icon name="heart" class="text-pink-500" [size]="40"></lucide-icon>
         </div>
       </div>
 
       <button
         (click)="eliminarPareja()"
-        class="w-full py-3 bg-red-500/20 text-red-200 font-semibold rounded-xl hover:bg-red-500/30 transition-all border border-red-400/30">
+        class="w-full py-3 bg-gradient-to-r from-red-100 to-red-200 text-red-700 font-bold rounded-2xl hover:from-red-200 hover:to-red-300 transition-all border border-red-300 flex items-center justify-center gap-2">
+        <lucide-icon name="trash-2" [size]="18"></lucide-icon>
         Eliminar Pareja
       </button>
     </div>
@@ -40,30 +41,35 @@
 
   <!-- Invitación Recibida (Pendiente) -->
   @else if (esInvitacionRecibida()) {
-    <div class="space-y-4">
-      <div class="bg-yellow-500/20 rounded-xl p-4 border border-yellow-400/30">
-        <p class="text-sm text-yellow-200 mb-2">Invitación recibida</p>
-        <p class="text-lg font-bold">{{ getNombrePareja() }}</p>
-        <p class="text-sm text-white/60">{{ getEmailPareja() }}</p>
-        <p class="text-xs text-white/50 mt-2">te ha enviado una invitación de pareja</p>
+    <div class="space-y-3">
+      <div class="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-2xl p-5 border border-yellow-300">
+        <p class="text-xs text-amber-700 font-bold uppercase tracking-wide mb-2 flex items-center gap-1">
+          <lucide-icon name="mail" [size]="14"></lucide-icon>
+          Invitación recibida
+        </p>
+        <p class="text-lg font-bold text-gray-800">{{ getNombrePareja() }}</p>
+        <p class="text-sm text-gray-600">{{ getEmailPareja() }}</p>
+        <p class="text-xs text-gray-500 mt-2">te ha enviado una invitación de pareja</p>
       </div>
 
-      <div class="flex gap-3">
+      <div class="flex gap-2">
         <button
           (click)="aceptarInvitacion()"
-          class="flex-1 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-all">
+          class="flex-1 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-2xl hover:from-green-600 hover:to-green-700 transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2">
+          <lucide-icon name="check" [size]="18"></lucide-icon>
           Aceptar
         </button>
         <button
           (click)="rechazarInvitacion()"
-          class="flex-1 py-3 bg-red-500/20 text-red-200 font-semibold rounded-xl hover:bg-red-500/30 transition-all border border-red-400/30">
-          Rechazarel
+          class="flex-1 py-3 bg-gradient-to-r from-red-100 to-red-200 text-red-700 font-bold rounded-2xl hover:from-red-200 hover:to-red-300 transition-all border border-red-300 flex items-center justify-center gap-2">
+          <lucide-icon name="x" [size]="18"></lucide-icon>
+          Rechazar
         </button>
       </div>
 
       <button
         (click)="eliminarPareja()"
-        class="w-full py-2 bg-white/10 text-white/70 text-sm font-semibold rounded-xl hover:bg-white/20 transition-all">
+        class="w-full py-2 bg-gray-100 text-gray-600 text-sm font-semibold rounded-2xl hover:bg-gray-200 transition-all">
         Eliminar invitación
       </button>
     </div>
@@ -71,17 +77,23 @@
 
   <!-- Invitación Enviada (Pendiente) -->
   @else if (esInvitacionEnviada()) {
-    <div class="space-y-4">
-      <div class="bg-blue-500/20 rounded-xl p-4 border border-blue-400/30">
-        <p class="text-sm text-blue-200 mb-2">Invitación enviada</p>
-        <p class="text-lg font-bold">{{ getNombrePareja() }}</p>
-        <p class="text-sm text-white/60">{{ getEmailPareja() }}</p>
-        <p class="text-xs text-white/50 mt-2">Esperando respuesta...</p>
+    <div class="space-y-3">
+      <div class="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-5 border border-blue-300">
+        <p class="text-xs text-blue-700 font-bold uppercase tracking-wide mb-2 flex items-center gap-1">
+          <lucide-icon name="send" [size]="14"></lucide-icon>
+          Invitación enviada
+        </p>
+        <p class="text-lg font-bold text-gray-800">{{ getNombrePareja() }}</p>
+        <p class="text-sm text-gray-600">{{ getEmailPareja() }}</p>
+        <p class="text-xs text-gray-500 mt-2 flex items-center gap-1">
+          <lucide-icon name="clock" [size]="12"></lucide-icon>
+          Esperando respuesta...
+        </p>
       </div>
 
       <button
         (click)="eliminarPareja()"
-        class="w-full py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all">
+        class="w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-2xl hover:bg-gray-200 transition-all">
         Cancelar Invitación
       </button>
     </div>
@@ -90,23 +102,25 @@
   <!-- Sin Pareja - Formulario de Invitación -->
   @else {
     <form [formGroup]="invitacionForm" (ngSubmit)="enviarInvitacion()" class="space-y-4">
-      <p class="text-sm text-white/70 mb-4">
+      <p class="text-sm text-gray-600 mb-4 bg-gradient-to-r from-pink-50 to-purple-50 p-3 rounded-2xl flex items-center gap-2">
+        <lucide-icon name="mail" class="text-pink-500" [size]="18"></lucide-icon>
         No tienes pareja activa. Envía una invitación por email para conectar con alguien especial.
       </p>
 
       <div>
-        <label class="block text-sm font-semibold mb-2">Email de tu pareja</label>
+        <label class="block text-sm font-bold mb-2 text-gray-700">Email de tu pareja</label>
         <input
           type="email"
           formControlName="emailPareja"
-          class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+          class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
           placeholder="pareja@ejemplo.com">
       </div>
 
       <button
         type="submit"
         [disabled]="invitacionForm.invalid"
-        class="w-full py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+        class="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-2xl hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg shadow-pink-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+        <lucide-icon name="send" [size]="20"></lucide-icon>
         Enviar Invitación
       </button>
     </form>

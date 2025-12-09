@@ -1,38 +1,53 @@
 <div class="px-4 py-6">
   <!-- Bienvenida -->
-  <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl mb-6">
-    <h2 class="text-2xl font-bold mb-2">¡Bienvenido, {{ currentUser?.nombre }}!</h2>
-    <p class="opacity-80">Aquí puedes gestionar tus citas, metas y memorias compartidas</p>
+  <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 mb-6">
+    <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+      ¡Bienvenido, {{ currentUser?.nombre }}!
+      <lucide-icon name="heart" class="text-pink-500" [size]="28"></lucide-icon>
+    </h2>
+    <p class="text-gray-600">Aquí puedes gestionar tus citas, metas y memorias compartidas</p>
   </div>
 
   <!-- Accesos rápidos -->
   <div class="grid grid-cols-2 gap-4">
     <a
       routerLink="/app/citas"
-      class="bg-gradient-to-br from-pink-300 to-pink-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
-      <div class="text-3xl mb-2"></div>
-      <h3 class="font-semibold">Citas</h3>
+      class="bg-gradient-to-br from-pink-400 to-pink-500 rounded-3xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all text-white">
+      <div class="mb-2">
+        <lucide-icon name="calendar" [size]="36"></lucide-icon>
+      </div>
+      <h3 class="font-bold text-lg">Citas</h3>
+      <p class="text-sm opacity-90 mt-1">Planifica momentos especiales</p>
     </a>
 
     <a
       routerLink="/app/metas"
-      class="bg-gradient-to-br from-purple-300 to-purple-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
-      <div class="text-3xl mb-2"></div>
-      <h3 class="font-semibold">Metas</h3>
+      class="bg-gradient-to-br from-purple-400 to-purple-500 rounded-3xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all text-white">
+      <div class="mb-2">
+        <lucide-icon name="target" [size]="36"></lucide-icon>
+      </div>
+      <h3 class="font-bold text-lg">Metas</h3>
+      <p class="text-sm opacity-90 mt-1">Alcanza objetivos juntos</p>
     </a>
 
     <a
       routerLink="/app/memorias"
-      class="bg-gradient-to-br from-indigo-300 to-indigo-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
-      <div class="text-3xl mb-2"></div>
-      <h3 class="font-semibold">Memorias</h3>
+      class="bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-3xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all text-white">
+      <div class="mb-2">
+        <lucide-icon name="camera" [size]="36"></lucide-icon>
+      </div>
+      <h3 class="font-bold text-lg">Memorias</h3>
+      <p class="text-sm opacity-90 mt-1">Guarda recuerdos especiales</p>
     </a>
 
     <a
       routerLink="/app/perfil"
-      class="bg-gradient-to-br from-rose-300 to-rose-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
-      <div class="text-3xl mb-2"></div>
-      <h3 class="font-semibold">Perfil</h3>
+      class="bg-gradient-to-br from-rose-400 to-rose-500 rounded-3xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all text-white">
+      <div class="mb-2">
+        <lucide-icon name="user" [size]="36"></lucide-icon>
+      </div>
+      <h3 class="font-bold text-lg">Perfil</h3>
+      <p class="text-sm opacity-90 mt-1">Gestiona tu información</p>
     </a>
   </div>
 </div>

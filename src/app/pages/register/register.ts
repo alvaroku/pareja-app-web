@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractContro
 
 import { LoaderService } from '../../services/loader.service';
 import { AuthService } from '../../services/auth.service';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule,LucideAngularModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

@@ -18,7 +18,7 @@
         <button (click)="uploadPhoto()" class="btn-upload">
           Subir Foto
         </button>
-        <button (click)="cancelPreview()" class="btn-cancel">
+        <button (click)="cancelPreview()" class="btn-cancel text-gray-500">
           Cancelar
         </button>
       </div>
@@ -29,9 +29,9 @@
     <div class="actions">
       <label class="btn-change">
         @if (hasPhoto()) {
-          <span>Cambiar Foto</span>
+          <span class="text-gray-500">Cambiar Foto</span>
         } @else {
-          <span>Subir Foto</span>
+          <span class="text-gray-500">Subir Foto</span>
         }
         <input type="file" (change)="onFileSelected($event)" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" class="file-input" />
       </label>

@@ -1,49 +1,69 @@
 <div class="px-4 py-6">
-  <h2 class="text-2xl font-bold mb-6">Citas</h2>
-
-  @if (errorMessage) {
-    <div class="mb-4 p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
-      <p class="text-red-100 text-sm">{{ errorMessage }}</p>
-    </div>
-  }
-
-  <div class="mb-6">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+      <lucide-icon name="calendar" [size]="32"></lucide-icon>
+      Citas
+    </h2>
     <button
       (click)="openCreateModal()"
-      class="w-full py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg">
-      Nueva Cita
+      class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-2xl hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg shadow-pink-500/30">
+      <lucide-icon name="plus" size="24"></lucide-icon>
     </button>
   </div>
 
-  <div class="space-y-4">
+  @if (errorMessage) {
+    <div class="mb-4 p-4 bg-red-50 rounded-2xl border-l-4 border-red-400">
+      <p class="text-red-600 text-sm font-medium">{{ errorMessage }}</p>
+    </div>
+  }
+
+  <div class="space-y-3">
     @if (citas.length === 0) {
-      <div class="text-center py-8 text-white/70">
-        <p>No tienes citas programadas</p>
+      <div class="text-center py-12 bg-white/90 rounded-3xl">
+        <div class="mb-4 opacity-30 flex justify-center">
+          <lucide-icon name="calendar" class="text-gray-400" [size]="64"></lucide-icon>
+        </div>
+        <p class="text-gray-500">No tienes citas programadas</p>
       </div>
     }
 
     @for (cita of citas; track cita) {
-      <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 shadow-xl">
-        <div class="flex justify-between items-start mb-2">
+      <div class="bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl rounded-3xl p-5 shadow-lg border border-white/20 hover:shadow-xl transition-shadow">
+        <div class="flex justify-between items-start mb-3">
           <div class="flex-1">
-            <h3 class="font-semibold text-lg">{{ cita.titulo }}</h3>
+            <h3 class="font-bold text-xl text-gray-800">{{ cita.titulo }}</h3>
             @if (!isMiCita(cita)) {
-              <p class="text-xs text-purple-200 mt-1">Creada por tu pareja</p>
+              <div class="inline-flex items-center gap-1 mt-2 px-3 py-1 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full">
+                <lucide-icon name="heart" class="text-purple-600" [size]="14"></lucide-icon>
+                <span class="text-xs font-semibold text-purple-600">Creada por tu pareja</span>
+              </div>
             }
           </div>
-          <span class="text-sm bg-white/30 px-3 py-1 rounded-full">{{ cita.fechaHora | date: 'EEEE' }}</span>
+          <span class="text-sm font-semibold bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-2xl shadow-md">{{ cita.fechaHora | date: 'dd MMM' }}</span>
         </div>
-        <p class="text-sm opacity-90 mb-2">{{ cita.descripcion }}</p>
-        <p class="text-xs opacity-70 mb-3">{{ (cita.lugar) }} {{ cita.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p class="text-sm text-gray-700 mb-3 leading-relaxed">{{ cita.descripcion }}</p>
+        <div class="flex items-center gap-2 text-xs text-gray-500 mb-4">
+          <span class="flex items-center gap-1">
+            <lucide-icon name="map-pin" [size]="14"></lucide-icon>
+            <span>{{ cita.lugar }}</span>
+          </span>
+          <span>•</span>
+          <span class="flex items-center gap-1">
+            <lucide-icon name="clock" [size]="14"></lucide-icon>
+            <span>{{ cita.fechaHora | date: 'HH:mm' }}</span>
+          </span>
+        </div>
         <div class="flex gap-2">
           <button
             (click)="openEditModal(cita)"
-            class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30">
+            class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-indigo-600 font-semibold rounded-xl hover:from-blue-100 hover:to-indigo-100 transition-all flex items-center justify-center gap-2">
+            <lucide-icon name="edit" [size]="16"></lucide-icon>
             Editar
           </button>
           <button
             (click)="deleteCita(cita.id)"
-            class="px-4 py-2 bg-red-500/30 rounded-lg text-sm hover:bg-red-500/50">
+            class="flex-1 px-4 py-2.5 bg-gradient-to-r from-red-50 to-pink-50 text-red-600 font-semibold rounded-xl hover:from-red-100 hover:to-pink-100 transition-all flex items-center justify-center gap-2">
+            <lucide-icon name="trash-2" [size]="16"></lucide-icon>
             Eliminar
           </button>
         </div>

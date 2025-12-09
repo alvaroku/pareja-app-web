@@ -6,11 +6,12 @@ import { AuthService } from '../../../../services/auth.service';
 import { LoaderService } from '../../../../services/loader.service';
 import { Usuario } from '../../../../models/usuario.model';
 import { ToastrService } from 'ngx-toastr';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.css',
 })

@@ -1,56 +1,59 @@
 <!-- Overlay -->
-<div class="overlay fixed inset-0 bg-black/50 backdrop-blur-sm  flex items-center justify-center p-4">
+<div class="overlay fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
   <!-- Modal -->
-  <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl max-w-md w-full" (click)="$event.stopPropagation()">
+  <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-2xl max-w-md w-full border border-white/20" (click)="$event.stopPropagation()">
     <div class="flex justify-between items-center mb-6">
-      <h3 class="text-xl font-bold">Editar Perfil</h3>
-      <button (click)="closeModal()" class="text-2xl hover:opacity-70">&times;</button>
+      <h3 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+        <lucide-icon class="text-purple-500" name="edit" [size]="28"></lucide-icon>
+        Editar Perfil
+      </h3>
+      <button (click)="closeModal()" class="text-3xl text-gray-400 hover:text-gray-600 transition-colors">&times;</button>
     </div>
 
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="space-y-4">
       @if (errorMessage) {
-        <div class="p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
-          <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+        <div class="p-4 bg-red-50/90 backdrop-blur-sm rounded-2xl border border-red-200">
+          <p class="text-red-600 text-sm">{{ errorMessage }}</p>
         </div>
       }
 
       <div>
-        <label class="block text-sm font-semibold mb-2">Nombre</label>
+        <label class="block text-sm font-bold mb-2 text-gray-700">Nombre</label>
         <input
           type="text"
           formControlName="nombre"
           [class.ring-2]="submitted && f['nombre'].errors"
           [class.ring-red-400]="submitted && f['nombre'].errors"
-          class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+          class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
           placeholder="Tu nombre">
         @if (submitted && f['nombre'].errors) {
           <div class="mt-2">
             @if (f['nombre'].errors['required']) {
-              <p class="text-red-200 text-sm">El nombre es requerido</p>
+              <p class="text-red-600 text-sm">El nombre es requerido</p>
             }
             @if (f['nombre'].errors['minlength']) {
-              <p class="text-red-200 text-sm">El nombre debe tener al menos 3 caracteres</p>
+              <p class="text-red-600 text-sm">El nombre debe tener al menos 3 caracteres</p>
             }
           </div>
         }
       </div>
 
       <div>
-        <label class="block text-sm font-semibold mb-2">Email</label>
+        <label class="block text-sm font-bold mb-2 text-gray-700">Email</label>
         <input
           type="email"
           formControlName="email"
           [class.ring-2]="submitted && f['email'].errors"
           [class.ring-red-400]="submitted && f['email'].errors"
-          class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+          class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
           placeholder="tu@email.com">
         @if (submitted && f['email'].errors) {
           <div class="mt-2">
             @if (f['email'].errors['required']) {
-              <p class="text-red-200 text-sm">El email es requerido</p>
+              <p class="text-red-600 text-sm">El email es requerido</p>
             }
             @if (f['email'].errors['email']) {
-              <p class="text-red-200 text-sm">El email no es válido</p>
+              <p class="text-red-600 text-sm">El email no es válido</p>
             }
           </div>
         }
@@ -58,26 +61,26 @@
 
       <div class="grid grid-cols-3 gap-3">
         <div>
-          <label class="block text-sm font-semibold mb-2">Código</label>
+          <label class="block text-sm font-bold mb-2 text-gray-700">Código</label>
           <select
             formControlName="codigoPais"
-            class="w-full px-2 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white focus:outline-none focus:ring-2 focus:ring-white/50">
-            <option value="" class="bg-purple-600">-</option>
-            <option value="+1" class="bg-purple-600">+1</option>
-            <option value="+52" class="bg-purple-600">+52</option>
-            <option value="+34" class="bg-purple-600">+34</option>
-            <option value="+54" class="bg-purple-600">+54</option>
-            <option value="+55" class="bg-purple-600">+55</option>
-            <option value="+57" class="bg-purple-600">+57</option>
-            <option value="+58" class="bg-purple-600">+58</option>
+            class="w-full px-2 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent">
+            <option value="" class="bg-white text-gray-800">-</option>
+            <option value="+1" class="bg-white text-gray-800">+1</option>
+            <option value="+52" class="bg-white text-gray-800">+52</option>
+            <option value="+34" class="bg-white text-gray-800">+34</option>
+            <option value="+54" class="bg-white text-gray-800">+54</option>
+            <option value="+55" class="bg-white text-gray-800">+55</option>
+            <option value="+57" class="bg-white text-gray-800">+57</option>
+            <option value="+58" class="bg-white text-gray-800">+58</option>
           </select>
         </div>
         <div class="col-span-2">
-          <label class="block text-sm font-semibold mb-2">Teléfono</label>
+          <label class="block text-sm font-bold mb-2 text-gray-700">Teléfono</label>
           <input
             type="tel"
             formControlName="telefono"
-            class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+            class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
             placeholder="1234567890">
         </div>
       </div>
@@ -86,12 +89,12 @@
         <button
           type="button"
           (click)="closeModal()"
-          class="flex-1 py-3 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all">
+          class="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-2xl hover:bg-gray-200 transition-all">
           Cancelar
         </button>
         <button
           type="submit"
-          class="flex-1 py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg">
+          class="flex-1 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-2xl hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg shadow-pink-500/30">
           Guardar
         </button>
       </div>

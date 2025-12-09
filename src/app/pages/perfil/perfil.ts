@@ -8,11 +8,12 @@ import { Usuario } from '../../models/usuario.model';
 import { EditProfileComponent } from './components/edit/edit-profile';
 import { ParejaManagerComponent } from './components/pareja-manager/pareja-manager';
 import { ProfilePhoto } from './components/profile-photo/profile-photo';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, ParejaManagerComponent, ProfilePhoto],
+  imports: [CommonModule, ParejaManagerComponent, ProfilePhoto, LucideAngularModule],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })

@@ -8,11 +8,12 @@ import { AuthService } from '../../services/auth.service';
 import { LoaderService } from '../../services/loader.service';
 import { CreateEditMemoriaComponent } from './create-edit-memoria/create-edit-memoria.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   standalone: true,
   selector: 'app-memorias',
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './memorias.html',
   styleUrl: './memorias.css',
 })
