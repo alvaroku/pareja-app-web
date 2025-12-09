@@ -8,8 +8,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
+        loadComponent: () => import('./pages/landing/landing').then(m => m.Landing)
       },
       {
         path: 'login',

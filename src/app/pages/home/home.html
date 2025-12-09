@@ -1,42 +1,38 @@
-<!-- Perfil estilo tarjeta -->
-<section class="px-4 mt-2">
-  <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 shadow-xl flex items-center gap-4">
-    <div class="w-16 h-16 bg-white/30 rounded-full"></div>
-    <div>
-      <h2 class="text-lg font-semibold">Tu Pareja</h2>
-      <p class="text-sm opacity-80">Días juntos: <span>{{ daysCount }}</span></p>
-    </div>
+<div class="px-4 py-6">
+  <!-- Bienvenida -->
+  <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl mb-6">
+    <h2 class="text-2xl font-bold mb-2">¡Bienvenido, {{ currentUser?.nombre }}!</h2>
+    <p class="opacity-80">Aquí puedes gestionar tus citas, metas y memorias compartidas</p>
   </div>
-</section>
 
-<!-- Tarjetas tipo "Buckets" -->
-<section class="px-4 mt-6">
-  <h3 class="text-lg font-semibold mb-3">Secciones</h3>
-  <div class="grid grid-cols-2 gap-3">
-    <a routerLink="/app/citas" class="bg-white/20 backdrop-blur-xl rounded-xl p-4 text-center shadow hover:bg-white/30 transition-all">Citas</a>
-    <a routerLink="/app/metas" class="bg-white/20 backdrop-blur-xl rounded-xl p-4 text-center shadow hover:bg-white/30 transition-all">Metas</a>
-    <a routerLink="/app/memorias" class="bg-white/20 backdrop-blur-xl rounded-xl p-4 text-center shadow hover:bg-white/30 transition-all">Fotos</a>
-    <a routerLink="/app/memorias" class="bg-white/20 backdrop-blur-xl rounded-xl p-4 text-center shadow hover:bg-white/30 transition-all">Memorias</a>
+  <!-- Accesos rápidos -->
+  <div class="grid grid-cols-2 gap-4">
+    <a
+      routerLink="/app/citas"
+      class="bg-gradient-to-br from-pink-300 to-pink-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
+      <div class="text-3xl mb-2"></div>
+      <h3 class="font-semibold">Citas</h3>
+    </a>
+
+    <a
+      routerLink="/app/metas"
+      class="bg-gradient-to-br from-purple-300 to-purple-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
+      <div class="text-3xl mb-2"></div>
+      <h3 class="font-semibold">Metas</h3>
+    </a>
+
+    <a
+      routerLink="/app/memorias"
+      class="bg-gradient-to-br from-indigo-300 to-indigo-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
+      <div class="text-3xl mb-2"></div>
+      <h3 class="font-semibold">Memorias</h3>
+    </a>
+
+    <a
+      routerLink="/app/perfil"
+      class="bg-gradient-to-br from-rose-300 to-rose-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition-transform text-white">
+      <div class="text-3xl mb-2"></div>
+      <h3 class="font-semibold">Perfil</h3>
+    </a>
   </div>
-</section>
-
-<!-- Tarjetas estilo "shots" con colores suaves -->
-<section class="px-4 mt-6 mb-10">
-  <h3 class="text-lg font-semibold mb-3">Últimas actividades</h3>
-  <div class="space-y-4">
-    <div class="p-4 rounded-2xl shadow-xl bg-gradient-to-r from-pink-300 to-pink-500 text-white">
-      <h4 class="font-semibold">Nueva meta agregada</h4>
-      <p class="opacity-90 text-sm">Viajar juntos a la playa</p>
-    </div>
-
-    <div class="p-4 rounded-2xl shadow-xl bg-gradient-to-r from-purple-300 to-purple-500 text-white">
-      <h4 class="font-semibold">Cita programada</h4>
-      <p class="opacity-90 text-sm">Cena el viernes</p>
-    </div>
-
-    <div class="p-4 rounded-2xl shadow-xl bg-gradient-to-r from-indigo-300 to-indigo-500 text-white">
-      <h4 class="font-semibold">Nueva memoria</h4>
-      <p class="opacity-90 text-sm">Fotos del concierto</p>
-    </div>
-  </div>
-</section>
+</div>

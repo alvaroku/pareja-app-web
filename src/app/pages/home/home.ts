@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +10,13 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.css',
 })
 export class HomeComponent implements OnInit {
-  daysCount: number = 0;
+  currentUser: Usuario | null = null;
 
-  ngOnInit() {
-    // Calcula los días desde una fecha de aniversario
-    const anniversary = new Date('2023-01-01');
-    const now = new Date();
-    const diff = now.getTime() - anniversary.getTime();
-    this.daysCount = Math.floor(diff / (1000 * 60 * 60 * 24));
+  constructor(private readonly authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 }
