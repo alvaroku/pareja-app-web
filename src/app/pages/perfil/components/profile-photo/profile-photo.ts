@@ -6,10 +6,11 @@ import { UsuarioService } from '../../../../services/usuario.service';
 import { Usuario } from '../../../../models/usuario.model';
 import { LoaderService } from '../../../../services/loader.service';
 import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confirm-dialog';
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: 'app-profile-photo',
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './profile-photo.html',
   styleUrl: './profile-photo.css',
 })
