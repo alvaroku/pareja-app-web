@@ -9,8 +9,8 @@
   <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl mb-6">
     <div class="flex flex-col items-center">
       <div class="w-24 h-24 bg-white/30 rounded-full mb-4"></div>
-      <h3 class="text-xl font-semibold">{{ currentUser?.nombre || 'Usuario' }}</h3>
-      <p class="text-sm opacity-80">Juntos desde: 1 Enero 2023</p>
+      <h3 class="text-xl font-semibold">{{ currentUser?.nombre }}</h3>
+      <p class="text-sm opacity-80"></p>
     </div>
   </div>
 
@@ -35,23 +35,8 @@
       </div>
     </div>
 
-    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 shadow-xl">
-      <h3 class="font-semibold mb-3">Estadísticas</h3>
-      <div class="grid grid-cols-3 gap-3 text-center">
-        <div>
-          <p class="text-2xl font-bold">12</p>
-          <p class="text-xs opacity-80">Citas</p>
-        </div>
-        <div>
-          <p class="text-2xl font-bold">5</p>
-          <p class="text-xs opacity-80">Metas</p>
-        </div>
-        <div>
-          <p class="text-2xl font-bold">48</p>
-          <p class="text-xs opacity-80">Fotos</p>
-        </div>
-      </div>
-    </div>
+    <!-- Gestión de Pareja -->
+    <app-pareja-manager></app-pareja-manager>
 
     <button
       (click)="openEditModal()"

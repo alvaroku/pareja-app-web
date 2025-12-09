@@ -6,11 +6,12 @@ import { UsuarioService } from '../../services/usuario.service';
 import { LoaderService } from '../../services/loader.service';
 import { Usuario } from '../../models/usuario.model';
 import { EditProfileComponent } from './components/edit/edit-profile';
+import { ParejaManagerComponent } from './components/pareja-manager/pareja-manager';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ParejaManagerComponent],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })

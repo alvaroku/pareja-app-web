@@ -1,0 +1,114 @@
+<div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl">
+  <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+    <span></span>
+    <span>Mi Pareja</span>
+  </h3>
+
+  @if (errorMessage) {
+    <div class="p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50 mb-4">
+      <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+    </div>
+  }
+
+  @if (successMessage) {
+    <div class="p-3 bg-green-500/20 backdrop-blur-sm rounded-lg border border-green-400/50 mb-4">
+      <p class="text-green-100 text-sm">{{ successMessage }}</p>
+    </div>
+  }
+
+  <!-- Pareja Activa -->
+  @if (pareja && pareja.estado === EstadoInvitacion.Aceptada) {
+    <div class="space-y-4">
+      <div class="bg-white/10 rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-white/70">Pareja actual</p>
+            <p class="text-xl font-bold">{{ getNombrePareja() }}</p>
+            <p class="text-sm text-white/60">{{ getEmailPareja() }}</p>
+          </div>
+          <div class="text-4xl"></div>
+        </div>
+      </div>
+
+      <button
+        (click)="eliminarPareja()"
+        class="w-full py-3 bg-red-500/20 text-red-200 font-semibold rounded-xl hover:bg-red-500/30 transition-all border border-red-400/30">
+        Eliminar Pareja
+      </button>
+    </div>
+  }
+
+  <!-- Invitación Recibida (Pendiente) -->
+  @else if (esInvitacionRecibida()) {
+    <div class="space-y-4">
+      <div class="bg-yellow-500/20 rounded-xl p-4 border border-yellow-400/30">
+        <p class="text-sm text-yellow-200 mb-2">Invitación recibida</p>
+        <p class="text-lg font-bold">{{ getNombrePareja() }}</p>
+        <p class="text-sm text-white/60">{{ getEmailPareja() }}</p>
+        <p class="text-xs text-white/50 mt-2">te ha enviado una invitación de pareja</p>
+      </div>
+
+      <div class="flex gap-3">
+        <button
+          (click)="aceptarInvitacion()"
+          class="flex-1 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-all">
+          Aceptar
+        </button>
+        <button
+          (click)="rechazarInvitacion()"
+          class="flex-1 py-3 bg-red-500/20 text-red-200 font-semibold rounded-xl hover:bg-red-500/30 transition-all border border-red-400/30">
+          Rechazarel
+        </button>
+      </div>
+
+      <button
+        (click)="eliminarPareja()"
+        class="w-full py-2 bg-white/10 text-white/70 text-sm font-semibold rounded-xl hover:bg-white/20 transition-all">
+        Eliminar invitación
+      </button>
+    </div>
+  }
+
+  <!-- Invitación Enviada (Pendiente) -->
+  @else if (esInvitacionEnviada()) {
+    <div class="space-y-4">
+      <div class="bg-blue-500/20 rounded-xl p-4 border border-blue-400/30">
+        <p class="text-sm text-blue-200 mb-2">Invitación enviada</p>
+        <p class="text-lg font-bold">{{ getNombrePareja() }}</p>
+        <p class="text-sm text-white/60">{{ getEmailPareja() }}</p>
+        <p class="text-xs text-white/50 mt-2">Esperando respuesta...</p>
+      </div>
+
+      <button
+        (click)="eliminarPareja()"
+        class="w-full py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all">
+        Cancelar Invitación
+      </button>
+    </div>
+  }
+
+  <!-- Sin Pareja - Formulario de Invitación -->
+  @else {
+    <form [formGroup]="invitacionForm" (ngSubmit)="enviarInvitacion()" class="space-y-4">
+      <p class="text-sm text-white/70 mb-4">
+        No tienes pareja activa. Envía una invitación por email para conectar con alguien especial.
+      </p>
+
+      <div>
+        <label class="block text-sm font-semibold mb-2">Email de tu pareja</label>
+        <input
+          type="email"
+          formControlName="emailPareja"
+          class="w-full px-4 py-3 rounded-xl bg-white/30 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+          placeholder="pareja@ejemplo.com">
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="invitacionForm.invalid"
+        class="w-full py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+        Enviar Invitación
+      </button>
+    </form>
+  }
+</div>
