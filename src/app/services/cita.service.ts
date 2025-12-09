@@ -32,6 +32,10 @@ export class CitaService {
     return this.http.get<ApiResponse<Cita[]>>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
 
+  getMisCitas(): Observable<ApiResponse<Cita[]>> {
+    return this.http.get<ApiResponse<Cita[]>>(`${this.apiUrl}/mis-citas`);
+  }
+
   create(cita: CreateCitaDto): Observable<ApiResponse<Cita>> {
     return this.http.post<ApiResponse<Cita>>(`${this.apiUrl}`, cita);
   }

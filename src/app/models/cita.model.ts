@@ -2,8 +2,8 @@ export interface Cita {
   id: number;
   titulo: string;
   descripcion: string;
-  fecha: Date;
-  lugar: string;
+  fechaHora: Date;
+  lugar?: string;
   usuarioId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -12,7 +12,7 @@ export interface Cita {
 export interface CreateCitaDto {
   titulo: string;
   descripcion: string;
-  fecha: string;
+  fechaHora: string;
   lugar: string;
   usuarioId: number;
 }
@@ -21,6 +21,6 @@ export interface UpdateCitaDto {
   id: number;
   titulo: string;
   descripcion: string;
-  fecha: string;
+  fechaHora: string;
   lugar: string;
 }

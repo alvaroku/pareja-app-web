@@ -8,7 +8,9 @@
   }
 
   <div class="mb-6">
-    <button class="w-full py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg">
+    <button
+      (click)="openCreateModal()"
+      class="w-full py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg">
       + Nueva Cita
     </button>
   </div>
@@ -23,14 +25,27 @@
     @for (cita of citas; track cita) {
       <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 shadow-xl">
         <div class="flex justify-between items-start mb-2">
-          <h3 class="font-semibold text-lg">{{ cita.titulo }}</h3>
-          <span class="text-sm bg-white/30 px-3 py-1 rounded-full">{{ cita.fecha | date: 'EEEE' }}</span>
+          <div class="flex-1">
+            <h3 class="font-semibold text-lg">{{ cita.titulo }}</h3>
+            @if (!isMiCita(cita)) {
+              <p class="text-xs text-purple-200 mt-1">Creada por tu pareja</p>
+            }
+          </div>
+          <span class="text-sm bg-white/30 px-3 py-1 rounded-full">{{ cita.fechaHora | date: 'EEEE' }}</span>
         </div>
         <p class="text-sm opacity-90 mb-2">{{ cita.descripcion }}</p>
-        <p class="text-xs opacity-70 mb-3">{{ cita.lugar }} - {{ cita.fecha | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p class="text-xs opacity-70 mb-3">{{ (cita.lugar) }} {{ cita.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</p>
         <div class="flex gap-2">
-          <button class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30">Editar</button>
-          <button (click)="deleteCita(cita.id)" class="px-4 py-2 bg-red-500/30 rounded-lg text-sm hover:bg-red-500/50">Eliminar</button>
+          <button
+            (click)="openEditModal(cita)"
+            class="px-4 py-2 bg-white/20 rounded-lg text-sm hover:bg-white/30">
+            Editar
+          </button>
+          <button
+            (click)="deleteCita(cita.id)"
+            class="px-4 py-2 bg-red-500/30 rounded-lg text-sm hover:bg-red-500/50">
+            Eliminar
+          </button>
         </div>
       </div>
     }
