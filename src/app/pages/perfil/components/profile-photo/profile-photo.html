@@ -1,0 +1,50 @@
+<div class="profile-photo-container">
+  <!-- Foto Actual o Placeholder -->
+  <div class="photo-display">
+    @if (getDisplayPhoto()) {
+      <img [src]="getDisplayPhoto()" alt="Foto de perfil" class="profile-image" />
+    } @else {
+      <div class="profile-placeholder">
+        <span class="placeholder-icon"></span>
+      </div>
+    }
+  </div>
+
+  <!-- Preview y controles cuando hay archivo seleccionado -->
+  @if (selectedFile && previewUrl) {
+    <div class="preview-section">
+      <p class="preview-label">Vista previa:</p>
+      <div class="preview-actions">
+        <button (click)="uploadPhoto()" class="btn-upload">
+          Subir Foto
+        </button>
+        <button (click)="cancelPreview()" class="btn-cancel">
+          Cancelar
+        </button>
+      </div>
+      <p class="file-info">{{ selectedFile.name }} - {{ (selectedFile.size / 1024).toFixed(2) }} KB</p>
+    </div>
+  } @else {
+    <!-- Botones de acción -->
+    <div class="actions">
+      <label class="btn-change">
+        @if (hasPhoto()) {
+          <span>Cambiar Foto</span>
+        } @else {
+          <span>Subir Foto</span>
+        }
+        <input type="file" (change)="onFileSelected($event)" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" class="file-input" />
+      </label>
+
+      @if (hasPhoto()) {
+        <button (click)="deletePhoto()" class="btn-delete">
+          Eliminar Foto
+        </button>
+      }
+    </div>
+  }
+
+  @if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  }
+</div>

@@ -83,6 +83,11 @@ export class AuthService {
       );
   }
 
+  updateCurrentUser(user: Usuario): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');

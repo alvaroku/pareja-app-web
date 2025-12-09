@@ -7,11 +7,12 @@ import { LoaderService } from '../../services/loader.service';
 import { Usuario } from '../../models/usuario.model';
 import { EditProfileComponent } from './components/edit/edit-profile';
 import { ParejaManagerComponent } from './components/pareja-manager/pareja-manager';
+import { ProfilePhoto } from './components/profile-photo/profile-photo';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, ParejaManagerComponent],
+  imports: [CommonModule, ParejaManagerComponent, ProfilePhoto],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })
@@ -36,6 +37,26 @@ export class PerfilComponent implements OnInit {
       this.authService.currentUser$.subscribe(user => {
        this.currentUser = user;
      }); }
+
+  onPhotoUpdated() {
+    // Recargar datos del usuario para actualizar la foto
+    if (this.currentUser) {
+      this.loaderService.showLoading();
+      this.usuarioService.getById(this.currentUser.id).subscribe({
+        next: (response) => {
+          this.loaderService.hideLoading();
+          if (response.isSuccess && response.data) {
+            this.currentUser = response.data;
+            this.authService.updateCurrentUser(response.data);
+          }
+        },
+        error: (error) => {
+          this.loaderService.hideLoading();
+          console.error('Error al recargar usuario:', error);
+        }
+      });
+    }
+  }
 
   openEditModal() {
     if (!this.currentUser) return;
