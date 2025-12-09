@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Memoria, CreateMemoriaDto, UpdateMemoriaDto } from '../models/memoria.model';
-import { ApiResponse, PagedResponse } from '../models/api-response.model';
+import { Memoria, CreateMemoriaDto, UpdateMemoriaDto, ResourceResponse } from '../models/memoria.model';
+import { ApiResponse } from '../models/api-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,28 +16,22 @@ export class MemoriaService {
     return this.http.get<ApiResponse<Memoria>>(`${this.apiUrl}/${id}`);
   }
 
-  getAll(): Observable<ApiResponse<Memoria[]>> {
-    return this.http.get<ApiResponse<Memoria[]>>(`${this.apiUrl}`);
-  }
-
-  getPaged(pageNumber: number = 1, pageSize: number = 10): Observable<PagedResponse<Memoria>> {
-    const params = new HttpParams()
-      .set('pageNumber', pageNumber.toString())
-      .set('pageSize', pageSize.toString());
-
-    return this.http.get<PagedResponse<Memoria>>(`${this.apiUrl}/paged`, { params });
-  }
-
-  getByUsuarioId(usuarioId: number): Observable<ApiResponse<Memoria[]>> {
-    return this.http.get<ApiResponse<Memoria[]>>(`${this.apiUrl}/usuario/${usuarioId}`);
+  getMisMemorias(): Observable<ApiResponse<Memoria[]>> {
+    return this.http.get<ApiResponse<Memoria[]>>(`${this.apiUrl}/mis-memorias`);
   }
 
   create(memoria: CreateMemoriaDto): Observable<ApiResponse<Memoria>> {
     return this.http.post<ApiResponse<Memoria>>(`${this.apiUrl}`, memoria);
   }
 
-  update(memoria: UpdateMemoriaDto): Observable<ApiResponse<Memoria>> {
-    return this.http.put<ApiResponse<Memoria>>(`${this.apiUrl}/${memoria.id}`, memoria);
+  update(id: number, memoria: UpdateMemoriaDto): Observable<ApiResponse<Memoria>> {
+    return this.http.put<ApiResponse<Memoria>>(`${this.apiUrl}/${id}`, memoria);
+  }
+
+  uploadFile(memoriaId: number, file: File): Observable<ApiResponse<ResourceResponse>> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<ApiResponse<ResourceResponse>>(`${this.apiUrl}/${memoriaId}/upload`, formData);
   }
 
   delete(id: number): Observable<ApiResponse<boolean>> {
