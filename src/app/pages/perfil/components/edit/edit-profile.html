@@ -4,7 +4,9 @@
   <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-2xl max-w-md w-full border border-white/20" (click)="$event.stopPropagation()">
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
-        <lucide-icon class="text-purple-500" name="edit" [size]="28"></lucide-icon>
+         <div class="p-2 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl">
+            <lucide-icon name="edit" class="text-white" [size]="28"></lucide-icon>
+          </div>
         Editar Perfil
       </h3>
       <button (click)="closeModal()" class="text-3xl text-gray-400 hover:text-gray-600 transition-colors">&times;</button>
