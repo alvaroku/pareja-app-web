@@ -71,8 +71,8 @@ export class AuthService {
       );
   }
 
-  updateProfile(id: number, nombre: string, email: string, codigoPais?: string, telefono?: string): Observable<ApiResponse<Usuario>> {
-    return this.http.put<ApiResponse<Usuario>>(`${environment.apiUrl}/usuarios/${id}`, { id, nombre, email, codigoPais, telefono })
+  updateProfile(id: number, nombre: string, email: string, codigoPais?: string, telefono?: string, timeZone?: string): Observable<ApiResponse<Usuario>> {
+    return this.http.put<ApiResponse<Usuario>>(`${environment.apiUrl}/usuarios/${id}`, { id, nombre, email, codigoPais, telefono, timeZone })
       .pipe(
         tap(response => {
           if (response.isSuccess && response.data) {

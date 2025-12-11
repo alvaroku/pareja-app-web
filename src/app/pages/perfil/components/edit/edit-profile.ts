@@ -7,6 +7,7 @@ import { LoaderService } from '../../../../services/loader.service';
 import { Usuario } from '../../../../models/usuario.model';
 import { ToastrService } from 'ngx-toastr';
 import { LucideAngularModule } from "lucide-angular";
+import { TIMEZONES } from '../../../../utils/timezones';
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,13 +28,15 @@ export class EditProfileComponent implements OnInit {
   errorMessage = '';
   userId: number = 0;
 
+  timezones = TIMEZONES
   ngOnInit() {
     this.userId = this.data.id;
     this.editForm = this.fb.group({
       nombre: [this.data.nombre, [Validators.required, Validators.minLength(3)]],
       email: [this.data.email, [Validators.required, Validators.email]],
       codigoPais: [this.data.codigoPais || ''],
-      telefono: [this.data.telefono || '']
+      telefono: [this.data.telefono || ''],
+      timeZone: [this.data.timeZone || 'America/Mexico_City']
     });
   }
 
@@ -54,9 +57,9 @@ export class EditProfileComponent implements OnInit {
     }
 
     this.loaderService.showLoading();
-    const { nombre, email, codigoPais, telefono } = this.editForm.value;
+    const { nombre, email, codigoPais, telefono, timeZone } = this.editForm.value;
 
-    this.authService.updateProfile(this.userId, nombre, email, codigoPais, telefono).subscribe({
+    this.authService.updateProfile(this.userId, nombre, email, codigoPais, telefono, timeZone).subscribe({
       next: (response) => {
         this.loaderService.hideLoading();
         this.toastr.success(response.message, 'Éxito');

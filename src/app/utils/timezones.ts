@@ -1,0 +1,23 @@
+export const TIMEZONES = [
+  { value: 'America/Mexico_City', label: '(UTC-06:00) Ciudad de México, Monterrey' },
+  { value: 'America/Cancun', label: '(UTC-05:00) Cancún, Chetumal' },
+  { value: 'America/Tijuana', label: '(UTC-08:00) Tijuana, Baja California' },
+  { value: 'America/Chihuahua', label: '(UTC-07:00) Chihuahua, La Paz' },
+  { value: 'America/Mazatlan', label: '(UTC-07:00) Mazatlán' },
+  { value: 'America/Hermosillo', label: '(UTC-07:00) Hermosillo, Sonora' },
+  { value: 'America/New_York', label: '(UTC-05:00) Nueva York, Miami' },
+  { value: 'America/Chicago', label: '(UTC-06:00) Chicago, Houston' },
+  { value: 'America/Denver', label: '(UTC-07:00) Denver, Phoenix' },
+  { value: 'America/Los_Angeles', label: '(UTC-08:00) Los Ángeles, San Francisco' },
+  { value: 'America/Bogota', label: '(UTC-05:00) Bogotá, Lima' },
+  { value: 'America/Caracas', label: '(UTC-04:00) Caracas' },
+  { value: 'America/Santiago', label: '(UTC-04:00) Santiago' },
+  { value: 'America/Buenos_Aires', label: '(UTC-03:00) Buenos Aires' },
+  { value: 'America/Sao_Paulo', label: '(UTC-03:00) São Paulo, Brasilia' },
+  { value: 'Europe/Madrid', label: '(UTC+01:00) Madrid, Barcelona' },
+  { value: 'Europe/London', label: '(UTC+00:00) Londres' },
+  { value: 'Europe/Paris', label: '(UTC+01:00) París' },
+  { value: 'Europe/Berlin', label: '(UTC+01:00) Berlín' },
+  { value: 'Asia/Tokyo', label: '(UTC+09:00) Tokio' },
+  { value: 'UTC', label: '(UTC+00:00) Tiempo Universal Coordinado' }
+];

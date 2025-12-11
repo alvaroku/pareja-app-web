@@ -105,6 +105,18 @@ export interface CreateEditUsuarioData {
               <option [value]="UserRole.SuperAdmin">Super Administrador</option>
             </select>
           </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Zona Horaria</label>
+            <select
+              [(ngModel)]="usuarioForm.timeZone"
+              name="timeZone"
+              class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-pink-400 focus:outline-none transition-colors">
+              @for (tz of timezones; track tz.value) {
+                <option [value]="tz.value">{{ tz.label }}</option>
+              }
+            </select>
+          </div>
         </div>
 
         <div class="flex gap-3 mt-6">
@@ -213,8 +225,23 @@ export class CreateEditUsuarioComponent implements OnInit {
     password: '',
     codigoPais: '',
     telefono: '',
-    role: UserRole.User
+    role: UserRole.User,
+    timeZone: 'America/Mexico_City'
   };
+
+  timezones = [
+    { value: 'America/Mexico_City', label: '(UTC-06:00) Ciudad de México' },
+    { value: 'America/Cancun', label: '(UTC-05:00) Cancún' },
+    { value: 'America/Tijuana', label: '(UTC-08:00) Tijuana' },
+    { value: 'America/Chihuahua', label: '(UTC-07:00) Chihuahua' },
+    { value: 'America/New_York', label: '(UTC-05:00) Nueva York' },
+    { value: 'America/Chicago', label: '(UTC-06:00) Chicago' },
+    { value: 'America/Los_Angeles', label: '(UTC-08:00) Los Ángeles' },
+    { value: 'America/Bogota', label: '(UTC-05:00) Bogotá' },
+    { value: 'America/Buenos_Aires', label: '(UTC-03:00) Buenos Aires' },
+    { value: 'Europe/Madrid', label: '(UTC+01:00) Madrid' },
+    { value: 'UTC', label: '(UTC+00:00) UTC' }
+  ];
 
   ngOnInit() {
     if (this.data.usuario) {
@@ -226,7 +253,8 @@ export class CreateEditUsuarioComponent implements OnInit {
         password: '',
         codigoPais: u.codigoPais || '',
         telefono: u.telefono || '',
-        role: u.role
+        role: u.role,
+        timeZone: u.timeZone || 'America/Mexico_City'
       };
     }
   }
@@ -251,7 +279,6 @@ export class CreateEditUsuarioComponent implements OnInit {
       this.createUsuario();
     }
   }
-
   createUsuario() {
     this.usuarioService.create({
       nombre: this.usuarioForm.nombre,
@@ -259,7 +286,8 @@ export class CreateEditUsuarioComponent implements OnInit {
       password: this.usuarioForm.password,
       codigoPais: this.usuarioForm.codigoPais || undefined,
       telefono: this.usuarioForm.telefono || undefined,
-      role: this.usuarioForm.role
+      role: this.usuarioForm.role,
+      timeZone: this.usuarioForm.timeZone
     }).subscribe({
       next: (response) => {
         this.loaderService.hideLoading();
@@ -277,7 +305,6 @@ export class CreateEditUsuarioComponent implements OnInit {
       }
     });
   }
-
   updateUsuario() {
     if (!this.data.usuario) return;
 
@@ -286,7 +313,8 @@ export class CreateEditUsuarioComponent implements OnInit {
       email: this.usuarioForm.email,
       codigoPais: this.usuarioForm.codigoPais || undefined,
       telefono: this.usuarioForm.telefono || undefined,
-      role: this.usuarioForm.role
+      role: this.usuarioForm.role,
+      timeZone: this.usuarioForm.timeZone
     }).subscribe({
       next: (response) => {
         this.loaderService.hideLoading();

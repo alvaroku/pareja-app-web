@@ -27,6 +27,7 @@ export interface Usuario {
   telefono?: string;
   resource?: ResourceResponse;
   role: UserRole;
+  timeZone?: string;
 }
 
 export interface LoginDto {
@@ -41,6 +42,7 @@ export interface RegisterDto {
   confirmPassword: string;
   codigoPais?: string;
   telefono?: string;
+  timeZone?: string;
 }
 
 export interface LoginResponse {
@@ -52,4 +54,5 @@ export interface LoginResponse {
   resource?: ResourceResponse;
   token: string;
   role: UserRole;
+  timeZone?: string;
 }

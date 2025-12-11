@@ -12,6 +12,7 @@ export interface UpdateUsuarioDto {
   codigoPais?: string;
   telefono?: string;
   role?: UserRole;
+  timeZone?: string;
 }
 
 export interface CreateUsuarioDto {
@@ -21,6 +22,7 @@ export interface CreateUsuarioDto {
   codigoPais?: string;
   telefono?: string;
   role: UserRole;
+  timeZone?: string;
 }
 
 @Injectable({

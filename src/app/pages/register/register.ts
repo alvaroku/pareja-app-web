@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractContro
 import { LoaderService } from '../../services/loader.service';
 import { AuthService } from '../../services/auth.service';
 import { LucideAngularModule } from 'lucide-angular';
+import { TIMEZONES } from '../../utils/timezones';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
   errorMessage = '';
+  timezones = TIMEZONES;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +33,8 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
       codigoPais: [''],
-      telefono: ['']
+      telefono: [''],
+      timeZone: ['America/Mexico_City', [Validators.required]]
     }, {
       validators: this.passwordMatchValidator
     });

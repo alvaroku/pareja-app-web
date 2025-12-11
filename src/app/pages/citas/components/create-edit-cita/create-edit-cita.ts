@@ -81,7 +81,7 @@ export class CreateEditCitaComponent implements OnInit {
         id: this.data.cita.id,
         titulo,
         descripcion: descripcion || '',
-        fechaHora: fechaHora,
+        fechaHora: new Date(fechaHora),
         lugar: lugar || ''
       };
 

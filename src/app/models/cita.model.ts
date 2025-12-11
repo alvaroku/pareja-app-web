@@ -21,6 +21,6 @@ export interface UpdateCitaDto {
   id: number;
   titulo: string;
   descripcion: string;
-  fechaHora: string;
+  fechaHora: Date;
   lugar: string;
 }
