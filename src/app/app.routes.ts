@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+import { UserRole } from './models/usuario.model';
 
 export const routes: Routes = [
   {
@@ -49,6 +51,12 @@ export const routes: Routes = [
       {
         path: 'perfil',
         loadComponent: () => import('./pages/perfil/perfil').then(m => m.PerfilComponent)
+      },
+      {
+        path: 'usuarios',
+        loadComponent: () => import('./pages/usuarios/usuarios').then(m => m.UsuariosComponent),
+        canActivate: [roleGuard],
+        data: { roles: [UserRole.SuperAdmin] }
       }
     ]
   },

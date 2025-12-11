@@ -5,6 +5,11 @@ export enum TipoRecurso {
   Audio = 3
 }
 
+export enum UserRole {
+  User = 0,
+  SuperAdmin = 1
+}
+
 export interface ResourceResponse {
   id: number;
   nombre: string;
@@ -21,6 +26,7 @@ export interface Usuario {
   codigoPais?: string;
   telefono?: string;
   resource?: ResourceResponse;
+  role: UserRole;
 }
 
 export interface LoginDto {
@@ -45,4 +51,5 @@ export interface LoginResponse {
   telefono?: string;
   resource?: ResourceResponse;
   token: string;
+  role: UserRole;
 }

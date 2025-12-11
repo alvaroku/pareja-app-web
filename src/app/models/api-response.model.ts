@@ -6,16 +6,20 @@ export interface ApiResponse<T> {
   errors: string[];
 }
 
+export interface PagedData<T> {
+  items: T[];
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
 export interface PagedResponse<T> {
   isSuccess: boolean;
   statusCode: number;
-  data: T[];
+  data: PagedData<T>;
   message: string;
   errors: string[];
-  pageNumber: number;
-  pageSize: number;
-  totalPages: number;
-  totalCount: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
 }

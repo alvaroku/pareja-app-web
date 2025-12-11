@@ -74,6 +74,17 @@
             <span class="font-semibold">Perfil</span>
           </a>
         </li>
+        @if (isSuperAdmin()) {
+          <li>
+            <a
+              routerLink="/app/usuarios"
+              routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
+              class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
+              <lucide-icon name="users" [size]="20"></lucide-icon>
+              <span class="font-semibold">Usuarios</span>
+            </a>
+          </li>
+        }
       </ul>
 
       <div class="mt-8 pt-6 border-t border-gray-200">
