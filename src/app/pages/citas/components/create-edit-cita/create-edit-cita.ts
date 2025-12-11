@@ -41,7 +41,8 @@ export class CreateEditCitaComponent implements OnInit {
         descripcion: [this.data.cita.descripcion || null],
         fecha: [fecha, [Validators.required]],
         hora: [hora, [Validators.required]],
-        lugar: [this.data.cita.lugar || null]
+        lugar: [this.data.cita.lugar || null],
+        minutosAntesNotificar: [this.data.cita.minutosAntesNotificar || 30, [Validators.required, Validators.min(5)]]
       });
     } else {
       // Modo creación
@@ -50,7 +51,8 @@ export class CreateEditCitaComponent implements OnInit {
         descripcion: [''],
         fecha: ['', [Validators.required]],
         hora: ['', [Validators.required]],
-        lugar: ['']
+        lugar: [''],
+        minutosAntesNotificar: [30, [Validators.required, Validators.min(5)]]
       });
     }
   }
@@ -72,7 +74,7 @@ export class CreateEditCitaComponent implements OnInit {
 
     this.loaderService.showLoading();
 
-    const { titulo, descripcion, fecha, hora, lugar } = this.citaForm.value;
+    const { titulo, descripcion, fecha, hora, lugar, minutosAntesNotificar } = this.citaForm.value;
     const fechaHora = `${fecha}T${hora}:00`;
 
     if (this.isEditMode && this.data.cita) {
@@ -82,7 +84,8 @@ export class CreateEditCitaComponent implements OnInit {
         titulo,
         descripcion: descripcion || '',
         fechaHora: new Date(fechaHora),
-        lugar: lugar || ''
+        lugar: lugar || '',
+        minutosAntesNotificar
       };
 
       this.citaService.update(updateDto).subscribe({
@@ -107,7 +110,8 @@ export class CreateEditCitaComponent implements OnInit {
         descripcion: descripcion || '',
         fechaHora: fechaHora,
         lugar: lugar || '',
-        usuarioId: this.data.usuarioId!
+        usuarioId: this.data.usuarioId!,
+        minutosAntesNotificar:minutosAntesNotificar
       };
 
       this.citaService.create(createDto).subscribe({

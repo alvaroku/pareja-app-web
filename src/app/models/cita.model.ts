@@ -4,6 +4,7 @@ export interface Cita {
   descripcion: string;
   fechaHora: Date;
   lugar?: string;
+  minutosAntesNotificar: number;
   usuarioId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -14,6 +15,7 @@ export interface CreateCitaDto {
   descripcion: string;
   fechaHora: string;
   lugar: string;
+  minutosAntesNotificar: number;
   usuarioId: number;
 }
 
@@ -23,4 +25,5 @@ export interface UpdateCitaDto {
   descripcion: string;
   fechaHora: Date;
   lugar: string;
+  minutosAntesNotificar: number;
 }
