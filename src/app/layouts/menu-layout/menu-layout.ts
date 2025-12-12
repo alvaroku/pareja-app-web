@@ -5,6 +5,8 @@ import { LoaderComponent } from '../../shared/loader/loader';
 import { AuthService } from '../../services/auth.service';
 import { LucideAngularModule } from "lucide-angular";
 import { UserRole } from '../../models/usuario.model';
+import { PERMISSIONS } from '../../constants/permission.constants';
+import { MenuItem } from '../../models/menu-item.model';
 
 @Component({
   selector: 'app-menu-layout',
@@ -18,16 +20,11 @@ export class MenuLayoutComponent {
   currentUser = computed(() => this.authService.currentUserValue);
   isSuperAdmin = computed(() => this.currentUser()?.role === UserRole.SuperAdmin);
 
-  menuItems = [
-    { ruta: '/app/home', icono: 'home', nombre: 'Inicio', onClick: () => this.toggleMenu() },
-    { ruta: '/app/citas', icono: 'calendar', nombre: 'Citas', onClick: () => this.toggleMenu() },
-    { ruta: '/app/metas', icono: 'target', nombre: 'Metas', onClick: () => this.toggleMenu() },
-    { ruta: '/app/memorias', icono: 'camera', nombre: 'Memorias', onClick: () => this.toggleMenu() },
-    { ruta: '/app/usuarios', icono: 'users', nombre: 'Usuarios', onClick: () => this.toggleMenu(), requiresSuperAdmin: true },
-    { ruta: '/app/perfil', icono: 'user', nombre: 'Perfil', onClick: () => this.toggleMenu() },
-  ];
 
-  constructor(private authService: AuthService) {}
+  menuItems: MenuItem[] = [];
+  constructor(private authService: AuthService) {
+    this.menuItems = PERMISSIONS[this.currentUser()!.role!];
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;

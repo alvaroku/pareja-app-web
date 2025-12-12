@@ -27,6 +27,14 @@ export const routes: Routes = [
       {
         path: 'reset-password',
         loadComponent: () => import('./pages/reset-password/reset-password').then(m => m.ResetPasswordComponent)
+      },
+      {
+        path: 'unauthorized',
+        loadComponent: () => import('./pages/unauthorized/unauthorized').then(m => m.UnauthorizedComponent)
+      },
+      {
+        path: '404',
+        loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFoundComponent)
       }
     ]
   },
@@ -42,23 +50,33 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent)
+        loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent),
+        canActivate: [roleGuard],
+        data: { roles: [UserRole.SuperAdmin, UserRole.User] }
       },
       {
         path: 'citas',
-        loadComponent: () => import('./pages/citas/citas').then(m => m.CitasComponent)
+        loadComponent: () => import('./pages/citas/citas').then(m => m.CitasComponent),
+        canActivate: [roleGuard],
+        data: { roles: [UserRole.SuperAdmin, UserRole.User] }
       },
       {
         path: 'metas',
-        loadComponent: () => import('./pages/metas/metas').then(m => m.MetasComponent)
+        loadComponent: () => import('./pages/metas/metas').then(m => m.MetasComponent),
+        canActivate: [roleGuard],
+        data: { roles: [UserRole.SuperAdmin, UserRole.User] }
       },
       {
         path: 'memorias',
-        loadComponent: () => import('./pages/memorias/memorias').then(m => m.MemoriasComponent)
+        loadComponent: () => import('./pages/memorias/memorias').then(m => m.MemoriasComponent),
+        canActivate: [roleGuard],
+        data: { roles: [UserRole.SuperAdmin, UserRole.User] }
       },
       {
         path: 'perfil',
-        loadComponent: () => import('./pages/perfil/perfil').then(m => m.PerfilComponent)
+        loadComponent: () => import('./pages/perfil/perfil').then(m => m.PerfilComponent),
+        canActivate: [roleGuard],
+        data: { roles: [UserRole.SuperAdmin, UserRole.User] }
       },
       {
         path: 'usuarios',
@@ -70,6 +88,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '/404'
   }
 ];
