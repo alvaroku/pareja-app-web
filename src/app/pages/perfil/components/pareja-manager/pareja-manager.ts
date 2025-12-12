@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Dialog } from '@angular/cdk/dialog';
 
-import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';import { ParejaService } from '../../../../services/pareja.service';
+import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog'; import { ParejaService } from '../../../../services/pareja.service';
 import { LoaderService } from '../../../../services/loader.service';
 import { AuthService } from '../../../../services/auth.service';
 
@@ -239,5 +239,12 @@ export class ParejaManagerComponent implements OnInit {
     return this.pareja.usuarioEnviaId === this.currentUserId
       ? this.pareja.usuarioRecibeEmail
       : this.pareja.usuarioEnviaEmail;
+  }
+
+   getFotoPareja(): string | null {
+    if (!this.pareja) return null;
+    return this.pareja.usuarioEnviaId === this.currentUserId
+      ? this.pareja.usuarioRecibeFoto || null
+      : this.pareja.usuarioEnviaFoto || null;
   }
 }

@@ -4,7 +4,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { LoaderService } from '../../services/loader.service';
-import { Usuario } from '../../models/usuario.model';
+import { ResourceResponse, Usuario } from '../../models/usuario.model';
 import { EditProfileComponent } from './components/edit/edit-profile';
 import { ParejaManagerComponent } from './components/pareja-manager/pareja-manager';
 import { ProfilePhoto } from './components/profile-photo/profile-photo';
@@ -39,23 +39,11 @@ export class PerfilComponent implements OnInit {
        this.currentUser = user;
      }); }
 
-  onPhotoUpdated() {
+  onPhotoUpdated(response: ResourceResponse) {
     // Recargar datos del usuario para actualizar la foto
     if (this.currentUser) {
-      this.loaderService.showLoading();
-      this.usuarioService.getById(this.currentUser.id).subscribe({
-        next: (response) => {
-          this.loaderService.hideLoading();
-          if (response.isSuccess && response.data) {
-            this.currentUser = response.data;
-            this.authService.updateCurrentUser(response.data);
-          }
-        },
-        error: (error) => {
-          this.loaderService.hideLoading();
-          console.error('Error al recargar usuario:', error);
-        }
-      });
+      this.currentUser.resource = response
+      this.authService.updateCurrentUser(this.currentUser);
     }
   }
 

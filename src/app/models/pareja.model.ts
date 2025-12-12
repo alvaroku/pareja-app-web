@@ -14,6 +14,8 @@ export interface Pareja {
   usuarioRecibeEmail: string;
   estado: EstadoInvitacion;
   createdAt: string;
+  usuarioEnviaFoto?: string;
+  usuarioRecibeFoto?: string;
 }
 
 export interface EnviarInvitacionDto {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../../../../services/usuario.service';
-import { Usuario } from '../../../../models/usuario.model';
+import { ResourceResponse, Usuario } from '../../../../models/usuario.model';
 import { LoaderService } from '../../../../services/loader.service';
 import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confirm-dialog';
 import { LucideAngularModule } from "lucide-angular";
@@ -16,7 +16,7 @@ import { LucideAngularModule } from "lucide-angular";
 })
 export class ProfilePhoto {
   @Input() usuario!: Usuario;
-  @Output() photoUpdated = new EventEmitter<void>();
+  @Output() photoUpdated = new EventEmitter<ResourceResponse>();
 
   selectedFile: File | null = null;
   previewUrl: string | null = null;
@@ -72,10 +72,10 @@ export class ProfilePhoto {
       next: (response) => {
         this.loaderService.hideLoading();
         if (response.isSuccess) {
-          this.toastr.success('Foto de perfil actualizada correctamente');
+          this.toastr.success(response.message);
           this.selectedFile = null;
           this.previewUrl = null;
-          this.photoUpdated.emit();
+          this.photoUpdated.emit(response.data);
         } else {
           this.errorMessage = response.message || 'Error al subir la foto';
           this.toastr.error(this.errorMessage);
@@ -83,7 +83,7 @@ export class ProfilePhoto {
       },
       error: (error) => {
         this.loaderService.hideLoading();
-        this.errorMessage = 'Error al subir la foto';
+        this.errorMessage = error.error.message || 'Error al subir la foto';
         this.toastr.error(this.errorMessage);
         console.error(error);
       }
