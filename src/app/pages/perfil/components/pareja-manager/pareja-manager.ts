@@ -34,6 +34,7 @@ export class ParejaManagerComponent implements OnInit {
   errorMessage = '';
   successMessage = '';
   currentUserId = 0;
+  mostrarFotoGrande = false;
 
   readonly EstadoInvitacion = EstadoInvitacion;
 
@@ -246,5 +247,15 @@ export class ParejaManagerComponent implements OnInit {
     return this.pareja.usuarioEnviaId === this.currentUserId
       ? this.pareja.usuarioRecibeFoto || null
       : this.pareja.usuarioEnviaFoto || null;
+  }
+
+  abrirFotoGrande() {
+    if (this.getFotoPareja()) {
+      this.mostrarFotoGrande = true;
+    }
+  }
+
+  cerrarFotoGrande() {
+    this.mostrarFotoGrande = false;
   }
 }
