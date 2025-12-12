@@ -62,11 +62,13 @@ export class EditProfileComponent implements OnInit {
     this.authService.updateProfile(this.userId, nombre, email, codigoPais, telefono, timeZone).subscribe({
       next: (response) => {
         this.loaderService.hideLoading();
+        this.submitted = false;
         this.toastr.success(response.message, 'Éxito');
         this.closeModal(true);
       },
       error: (error) => {
         this.loaderService.hideLoading();
+        this.submitted = false;
         this.errorMessage = error.error?.message || 'Error de conexión con el servidor';
       }
     });

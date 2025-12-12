@@ -1,103 +1,104 @@
-<div class="modal-backdrop" (click)="closeModal()"></div>
-<div class="modal-container" (click)="$event.stopPropagation()">
-  <div class="modal-header">
-    <div class="flex items-center gap-3">
-      <div class="p-2 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl">
-        <lucide-icon name="target" class="text-white" [size]="28"></lucide-icon>
-      </div>
-      <h2 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+<!-- Overlay -->
+<div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <!-- Modal -->
+  <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-2xl max-w-md w-full border border-white/20" (click)="$event.stopPropagation()">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+        <div class="p-2 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl">
+          <lucide-icon name="target" class="text-white" [size]="28"></lucide-icon>
+        </div>
         {{ isEditMode ? 'Editar Meta' : 'Nueva Meta' }}
-      </h2>
+      </h3>
+      <button (click)="closeModal()" class="text-3xl text-gray-400 hover:text-gray-600 transition-colors">&times;</button>
     </div>
-    <button class="close-btn" (click)="closeModal()">
-      <lucide-icon name="x" [size]="24"></lucide-icon>
-    </button>
-  </div>
 
-  <form [formGroup]="metaForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="titulo" class="block text-sm font-semibold text-gray-700 mb-2">Título *</label>
-      <input
-        id="titulo"
-        type="text"
-        formControlName="titulo"
-        placeholder="Ej: Viajar a París"
-        class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
-        [class.border-red-500]="submitted && f['titulo'].errors"
-        [class.border-gray-200]="!submitted || !f['titulo'].errors"
-      />
-      @if (submitted && f['titulo'].errors) {
-        <small class="text-red-500 text-xs mt-1 block">
-          @if (f['titulo'].errors['required']) { El título es requerido }
-          @if (f['titulo'].errors['maxlength']) { Máximo 200 caracteres }
-        </small>
+    <form [formGroup]="metaForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-bold mb-2 text-gray-700">Título *</label>
+        <input
+          type="text"
+          formControlName="titulo"
+          placeholder="Ej: Viajar a París"
+          [class.ring-2]="submitted && f['titulo'].errors"
+          [class.ring-red-400]="submitted && f['titulo'].errors"
+          class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        />
+        @if (submitted && f['titulo'].errors) {
+          <div class="mt-2">
+            @if (f['titulo'].errors['required']) {
+              <p class="text-red-600 text-sm">El título es requerido</p>
+            }
+            @if (f['titulo'].errors['maxlength']) {
+              <p class="text-red-600 text-sm">Máximo 200 caracteres</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-bold mb-2 text-gray-700">Descripción</label>
+        <textarea
+          formControlName="descripcion"
+          rows="4"
+          placeholder="Describe tu meta..."
+          class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent resize-none"
+        ></textarea>
+      </div>
+
+      @if (isEditMode) {
+        <div>
+          <label class="block text-sm font-bold mb-2 text-gray-700">Progreso (%) *</label>
+          <select
+            formControlName="progreso"
+            [class.ring-2]="submitted && f['progreso'].errors"
+            [class.ring-red-400]="submitted && f['progreso'].errors"
+            class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+          >
+            @for (porcentaje of porcentajes; track porcentaje) {
+              <option [value]="porcentaje">{{ porcentaje }}%</option>
+            }
+          </select>
+          @if (submitted && f['progreso'].errors) {
+            <div class="mt-2">
+              @if (f['progreso'].errors['required']) {
+                <p class="text-red-600 text-sm">El progreso es requerido</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div>
+          <label class="block text-sm font-bold mb-2 text-gray-700">Estado *</label>
+          <select
+            formControlName="estado"
+            [class.ring-2]="submitted && f['estado'].errors"
+            [class.ring-red-400]="submitted && f['estado'].errors"
+            class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+          >
+            @for (estado of estadoOptions; track estado.valor) {
+              <option [value]="estado.valor">{{ estado.nombre }}</option>
+            }
+          </select>
+          @if (submitted && f['estado'].errors) {
+            <div class="mt-2">
+              <p class="text-red-600 text-sm">El estado es requerido</p>
+            </div>
+          }
+        </div>
       }
-    </div>
 
-    <div class="form-group">
-      <label for="descripcion" class="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
-      <textarea
-        id="descripcion"
-        formControlName="descripcion"
-        rows="4"
-        placeholder="Describe tu meta..."
-        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 resize-none"
-      ></textarea>
-    </div>
-
-    @if (isEditMode) {
-      <div class="form-group">
-        <label for="progreso" class="block text-sm font-semibold text-gray-700 mb-2">Progreso (%) *</label>
-        <select
-          id="progreso"
-          formControlName="progreso"
-          class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
-          [class.border-red-500]="submitted && f['progreso'].errors"
-          [class.border-gray-200]="!submitted || !f['progreso'].errors"
-        >
-          @for (porcentaje of porcentajes; track porcentaje) {
-            <option [value]="porcentaje">{{ porcentaje }}%</option>
-          }
-        </select>
-        @if (submitted && f['progreso'].errors) {
-          <small class="text-red-500 text-xs mt-1 block">
-            @if (f['progreso'].errors['required']) { El progreso es requerido }
-          </small>
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="estado" class="block text-sm font-semibold text-gray-700 mb-2">Estado *</label>
-        <select
-          id="estado"
-          formControlName="estado"
-          class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
-          [class.border-red-500]="submitted && f['estado'].errors"
-          [class.border-gray-200]="!submitted || !f['estado'].errors"
-        >
-          @for (estado of estadoOptions; track estado.valor) {
-            <option [value]="estado.valor">{{ estado.nombre }}</option>
-          }
-        </select>
-        @if (submitted && f['estado'].errors) {
-          <small class="text-red-500 text-xs mt-1 block">El estado es requerido</small>
-        }
-      </div>
-    }
-
-    <div class="flex gap-3 justify-end mt-6">
-      <button
-        type="button"
-        (click)="closeModal()"
-        class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all duration-200"
-      >
-        Cancelar
-      </button>
-      <button
-        type="submit"
-        class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
-      >
-        {{ isEditMode ? 'Actualizar' : 'Crear' }}
+      <div class="flex gap-3 pt-4">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-2xl hover:bg-gray-200 transition-all">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          [disabled]="metaForm.invalid || submitted"
+          class="flex-1 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-2xl hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg shadow-pink-500/30 disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ submitted ? 'Guardando...' : (isEditMode ? 'Actualizar' : 'Crear') }}
       </button>
     </div>
   </form>

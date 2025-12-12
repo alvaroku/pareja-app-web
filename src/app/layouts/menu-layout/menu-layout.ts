@@ -14,9 +14,18 @@ import { UserRole } from '../../models/usuario.model';
 })
 export class MenuLayoutComponent {
   menuOpen = false;
-  
+
   currentUser = computed(() => this.authService.currentUserValue);
   isSuperAdmin = computed(() => this.currentUser()?.role === UserRole.SuperAdmin);
+
+  menuItems = [
+    { ruta: '/app/home', icono: 'home', nombre: 'Inicio', onClick: () => this.toggleMenu() },
+    { ruta: '/app/citas', icono: 'calendar', nombre: 'Citas', onClick: () => this.toggleMenu() },
+    { ruta: '/app/metas', icono: 'target', nombre: 'Metas', onClick: () => this.toggleMenu() },
+    { ruta: '/app/memorias', icono: 'camera', nombre: 'Memorias', onClick: () => this.toggleMenu() },
+    { ruta: '/app/usuarios', icono: 'users', nombre: 'Usuarios', onClick: () => this.toggleMenu(), requiresSuperAdmin: true },
+    { ruta: '/app/perfil', icono: 'user', nombre: 'Perfil', onClick: () => this.toggleMenu() },
+  ];
 
   constructor(private authService: AuthService) {}
 

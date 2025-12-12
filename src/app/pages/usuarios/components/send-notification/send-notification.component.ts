@@ -17,51 +17,54 @@ export interface SendNotificationData {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
   template: `
-    <div class="modal-backdrop" (click)="dialogRef.close()"></div>
-    <div class="modal-container" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
-            <lucide-icon name="bell" [size]="24" class="text-white"></lucide-icon>
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <!-- Modal -->
+      <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-2xl max-w-md w-full border border-white/20" (click)="$event.stopPropagation()">
+        <div class="flex justify-between items-center mb-6">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl">
+              <lucide-icon name="bell" class="text-white" [size]="28"></lucide-icon>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">
+                Enviar Notificación
+              </h3>
+              <p class="text-sm text-gray-600">A: {{ data.usuario.nombre }}</p>
+            </div>
           </div>
-          <div>
-            <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">
-              Enviar Notificación
-            </h2>
-            <p class="text-sm text-gray-600">A: {{ data.usuario.nombre }}</p>
-          </div>
+          <button (click)="dialogRef.close()" class="text-3xl text-gray-400 hover:text-gray-600 transition-colors">&times;</button>
         </div>
-        <button class="close-btn" (click)="dialogRef.close()">
-          <lucide-icon name="x" [size]="24"></lucide-icon>
-        </button>
-      </div>
 
-      <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()">
-        <div class="space-y-4">
+        <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()" class="space-y-4">
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Título *</label>
+            <label class="block text-sm font-bold mb-2 text-gray-700">Título *</label>
             <input
               type="text"
               formControlName="title"
-              class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200"
-              [class.border-red-500]="notificationForm.get('title')?.invalid && notificationForm.get('title')?.touched"
-              [class.border-gray-200]="!notificationForm.get('title')?.invalid || !notificationForm.get('title')?.touched">
-            <small class="text-red-500 text-xs mt-1 block" *ngIf="notificationForm.get('title')?.invalid && notificationForm.get('title')?.touched">
-              El título es requerido
-            </small>
+              [class.ring-2]="notificationForm.get('title')?.invalid && notificationForm.get('title')?.touched"
+              [class.ring-red-400]="notificationForm.get('title')?.invalid && notificationForm.get('title')?.touched"
+              class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent">
+            @if (notificationForm.get('title')?.invalid && notificationForm.get('title')?.touched) {
+              <div class="mt-2">
+                <p class="text-red-600 text-sm">El título es requerido</p>
+              </div>
+            }
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Mensaje *</label>
+            <label class="block text-sm font-bold mb-2 text-gray-700">Mensaje *</label>
             <textarea
               formControlName="body"
               rows="4"
-              class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 resize-none"
-              [class.border-red-500]="notificationForm.get('body')?.invalid && notificationForm.get('body')?.touched"
-              [class.border-gray-200]="!notificationForm.get('body')?.invalid || !notificationForm.get('body')?.touched"></textarea>
-            <small class="text-red-500 text-xs mt-1 block" *ngIf="notificationForm.get('body')?.invalid && notificationForm.get('body')?.touched">
-              El mensaje es requerido
-            </small>
+              [class.ring-2]="notificationForm.get('body')?.invalid && notificationForm.get('body')?.touched"
+              [class.ring-red-400]="notificationForm.get('body')?.invalid && notificationForm.get('body')?.touched"
+              class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent resize-none"></textarea>
+            @if (notificationForm.get('body')?.invalid && notificationForm.get('body')?.touched) {
+              <div class="mt-2">
+                <p class="text-red-600 text-sm">El mensaje es requerido</p>
+              </div>
+            }
           </div>
 
           <div class="flex items-center gap-2">
@@ -70,123 +73,58 @@ export interface SendNotificationData {
               formControlName="sendImmediately"
               id="sendImmediately"
               class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
-            <label for="sendImmediately" class="text-sm font-semibold text-gray-700">Enviar inmediatamente</label>
+            <label for="sendImmediately" class="text-sm font-bold text-gray-700">Enviar inmediatamente</label>
           </div>
 
           @if (!notificationForm.get('sendImmediately')?.value) {
             <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Programar envío (UTC)</label>
+              <label class="block text-sm font-bold mb-2 text-gray-700">Programar envío (UTC)</label>
               <input
                 type="datetime-local"
                 formControlName="scheduledAt"
-                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all duration-200 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200">
+                class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent">
             </div>
           }
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Datos adicionales (JSON)</label>
+            <label class="block text-sm font-bold mb-2 text-gray-700">Datos adicionales (JSON)</label>
             <textarea
               formControlName="additionalDataJson"
               rows="3"
               placeholder='{"key": "value"}'
-              class="w-full px-4 py-3 rounded-xl border-2 transition-all duration-200 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 resize-none font-mono text-sm"
-              [class.border-red-500]="notificationForm.get('additionalDataJson')?.invalid && notificationForm.get('additionalDataJson')?.touched"
-              [class.border-gray-200]="!notificationForm.get('additionalDataJson')?.invalid || !notificationForm.get('additionalDataJson')?.touched"></textarea>
-            <small class="text-red-500 text-xs mt-1 block" *ngIf="notificationForm.get('additionalDataJson')?.errors?.['invalidJson'] && notificationForm.get('additionalDataJson')?.touched">
-              Formato JSON inválido
-            </small>
-            <p class="text-xs text-gray-500 mt-1" *ngIf="!notificationForm.get('additionalDataJson')?.errors">Formato JSON opcional, ej: "key1": "value1", "key2": "value2"</p>
+              [class.ring-2]="notificationForm.get('additionalDataJson')?.invalid && notificationForm.get('additionalDataJson')?.touched"
+              [class.ring-red-400]="notificationForm.get('additionalDataJson')?.invalid && notificationForm.get('additionalDataJson')?.touched"
+              class="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent resize-none font-mono text-sm"></textarea>
+            @if (notificationForm.get('additionalDataJson')?.errors?.['invalidJson'] && notificationForm.get('additionalDataJson')?.touched) {
+              <div class="mt-2">
+                <p class="text-red-600 text-sm">Formato JSON inválido</p>
+              </div>
+            }
+            @if (!notificationForm.get('additionalDataJson')?.errors) {
+              <p class="text-xs text-gray-500 mt-1">Formato JSON opcional, ej: {{"{"}} "key1": "value1", "key2": "value2" {{"}"}}</p>
+            }
           </div>
-        </div>
 
-        <div class="flex gap-3 mt-6">
-          <button
-            type="button"
-            (click)="dialogRef.close()"
-            class="flex-1 px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition-colors">
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            class="flex-1 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            [disabled]="notificationForm.invalid || isSubmitting">
-            <lucide-icon name="send" [size]="16"></lucide-icon>
-            {{ isSubmitting ? 'Enviando...' : 'Enviar' }}
-          </button>
-        </div>
-      </form>
+          <div class="flex gap-3 pt-4">
+            <button
+              type="button"
+              (click)="dialogRef.close()"
+              class="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-2xl hover:bg-gray-200 transition-all">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="flex-1 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-2xl hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              [disabled]="notificationForm.invalid || isSubmitting">
+              <lucide-icon name="send" [size]="16"></lucide-icon>
+              {{ isSubmitting ? 'Enviando...' : 'Enviar' }}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>`,
   styles: [`
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .modal-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-      padding: 2rem;
-      width: 90%;
-      max-width: 550px;
-      max-height: 90vh;
-      overflow-y: auto;
-      z-index: 1001;
-      animation: slideUp 0.3s ease-out;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -45%);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid rgba(168, 85, 247, 0.1);
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: #9ca3af;
-      cursor: pointer;
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      transition: all 0.2s ease;
-    }
-
-    .close-btn:hover {
-      background: rgba(168, 85, 247, 0.1);
-      color: #a855f7;
-    }
+    /* Estilos adicionales si son necesarios */
   `]
 })
 export class SendNotificationComponent implements OnInit {

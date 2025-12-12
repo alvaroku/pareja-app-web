@@ -91,6 +91,7 @@ export class CreateEditCitaComponent implements OnInit {
       this.citaService.update(updateDto).subscribe({
         next: (response) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           if (response.isSuccess) {
             this.dialogRef.close(true);
              this.toastService.success(response.message);
@@ -100,6 +101,7 @@ export class CreateEditCitaComponent implements OnInit {
         },
         error: (error) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           this.toastService.error(error.error?.message || 'Error de conexión con el servidor');
         }
       });
@@ -117,6 +119,7 @@ export class CreateEditCitaComponent implements OnInit {
       this.citaService.create(createDto).subscribe({
         next: (response) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           if (response.isSuccess) {
             this.dialogRef.close(true);
              this.toastService.success(response.message);
@@ -126,6 +129,7 @@ export class CreateEditCitaComponent implements OnInit {
         },
         error: (error) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           this.toastService.error(error.error?.message || 'Error de conexión con el servidor');
         }
       });

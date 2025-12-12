@@ -29,63 +29,20 @@
       </div>
 
       <ul class="space-y-2">
-        <li>
-          <a
-            routerLink="/app/home"
-            routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
-            <lucide-icon name="home" size="20"></lucide-icon>
-            <span class="font-semibold">Inicio</span>
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/app/citas"
-            routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
-            <lucide-icon name="calendar" [size]="20"></lucide-icon>
-            <span class="font-semibold">Citas</span>
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/app/metas"
-            routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
-            <lucide-icon name="target" [size]="20"></lucide-icon>
-            <span class="font-semibold">Metas</span>
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/app/memorias"
-            routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
-            <lucide-icon name="camera" [size]="20"></lucide-icon>
-            <span class="font-semibold">Memorias</span>
-          </a>
-        </li>
-         @if (isSuperAdmin()) {
-          <li>
-            <a
-              routerLink="/app/usuarios"
-              routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
-              class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
-              <lucide-icon name="users" [size]="20"></lucide-icon>
-              <span class="font-semibold">Usuarios</span>
-            </a>
-          </li>
+        @for (item of menuItems; track item.ruta) {
+          @if (!item.requiresSuperAdmin || isSuperAdmin()) {
+            <li>
+              <a
+                [routerLink]="item.ruta"
+                (click)="item.onClick()"
+                routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
+                class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
+                <lucide-icon [name]="item.icono" [size]="20"></lucide-icon>
+                <span class="font-semibold">{{ item.nombre }}</span>
+              </a>
+            </li>
+          }
         }
-        <li>
-          <a
-            routerLink="/app/perfil"
-            routerLinkActive="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-100 transition-all group">
-            <lucide-icon name="user" [size]="20"></lucide-icon>
-            <span class="font-semibold">Perfil</span>
-          </a>
-        </li>
-
       </ul>
 
       <div class="mt-8 pt-6 border-t border-gray-200">

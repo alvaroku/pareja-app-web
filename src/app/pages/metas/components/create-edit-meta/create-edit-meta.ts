@@ -89,6 +89,7 @@ export class CreateEditMetaComponent implements OnInit {
       this.metaService.update(updateDto).subscribe({
         next: (response) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           if (response.isSuccess) {
             this.dialogRef.close(true);
           } else {
@@ -97,6 +98,7 @@ export class CreateEditMetaComponent implements OnInit {
         },
         error: (error) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           this.toastService.error(error.error?.message || 'Error de conexión con el servidor');
         }
       });
@@ -110,6 +112,7 @@ export class CreateEditMetaComponent implements OnInit {
       this.metaService.create(createDto).subscribe({
         next: (response) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           if (response.isSuccess) {
             this.dialogRef.close(true);
           } else {
@@ -118,6 +121,7 @@ export class CreateEditMetaComponent implements OnInit {
         },
         error: (error) => {
           this.loaderService.hideLoading();
+          this.submitted = false;
           this.toastService.error(error.error?.message || 'Error de conexión con el servidor');
         }
       });
