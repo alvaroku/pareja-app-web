@@ -95,4 +95,12 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
+
+  requestPasswordRecovery(email: string): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(`${this.apiUrl}/request-password-recovery`, { email });
+  }
+
+  resetPassword(token: string, email: string, newPassword: string): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(`${this.apiUrl}/reset-password`, { token, email, newPassword });
+  }
 }

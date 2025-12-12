@@ -14,7 +14,7 @@
       <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="space-y-4">
         @if (errorMessage) {
           <div class="p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
-            <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+            <p class="text-red-500 text-sm">{{ errorMessage }}</p>
           </div>
         }
 
@@ -30,10 +30,10 @@
             @if (submitted && f['nombre'].errors) {
               <div class="mt-2">
                 @if (f['nombre'].errors['required']) {
-                  <p class="text-red-200 text-sm">El nombre es requerido</p>
+                  <p class="text-red-400 text-sm">El nombre es requerido</p>
                 }
                 @if (f['nombre'].errors['minlength']) {
-                  <p class="text-red-200 text-sm">El nombre debe tener al menos 3 caracteres</p>
+                  <p class="text-red-400 text-sm">El nombre debe tener al menos 3 caracteres</p>
                 }
               </div>
             }
@@ -51,10 +51,10 @@
               @if (submitted && f['email'].errors) {
                 <div class="mt-2">
                   @if (f['email'].errors['required']) {
-                    <p class="text-red-200 text-sm">El email es requerido</p>
+                    <p class="text-red-400 text-sm">El email es requerido</p>
                   }
                   @if (f['email'].errors['email']) {
-                    <p class="text-red-200 text-sm">El email no es válido</p>
+                    <p class="text-red-400 text-sm">El email no es válido</p>
                   }
                 </div>
               }

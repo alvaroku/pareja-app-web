@@ -1,102 +1,121 @@
-<div class="min-h-screen px-4 py-8 flex flex-col justify-center">
-  <!-- Header de Bienvenida -->
-  <div class="text-center mb-12">
-    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-500 rounded-3xl shadow-2xl mb-6">
-      <lucide-icon name="heart" class="text-white" [size]="56"></lucide-icon>
-    </div>
-    <h1 class="text-5xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-      Pareja App
-    </h1>
-    <p class="text-xl text-white/90 mb-8">Tu espacio para compartir momentos especiales en pareja</p>
-
-    <!-- Botones de acción -->
-    <div class="flex gap-4 justify-center mb-12">
-      <button
-        (click)="goToLogin()"
-        class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-2xl hover:from-pink-600 hover:to-purple-700 hover:scale-105 transition-all shadow-lg shadow-pink-500/40">
-        Iniciar Sesión
-      </button>
-      <button
-        (click)="goToRegister()"
-        class="px-8 py-4 bg-white/95 backdrop-blur-xl text-gray-800 font-bold rounded-2xl hover:bg-white hover:scale-105 transition-all shadow-lg">
-        Registrarse
-      </button>
-    </div>
+<div class="min-h-screen relative overflow-hidden">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 -left-20 w-72 h-72 bg-pink-400/30 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute top-1/2 -right-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
   </div>
 
-  <!-- Grid de Funcionalidades -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-
-    <!-- Perfil -->
-    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 hover:scale-105 transition-transform">
-      <div class="mb-4">
-        <lucide-icon name="user" class="text-pink-500" [size]="36"></lucide-icon>
+  <div class="relative px-4 py-12 flex flex-col justify-center min-h-screen max-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <div class="text-center">
+      <!-- Logo animado -->
+      <div class="relative inline-block mb-8">
+        <div class="absolute inset-0 bg-gradient-to-br from-pink-400 to-purple-500 rounded-3xl blur-2xl opacity-50 animate-pulse"></div>
+        <div class="relative inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-pink-400 to-purple-500 rounded-3xl shadow-2xl hover:scale-110 transition-transform duration-300">
+          <lucide-icon name="heart" class="text-white animate-pulse" [size]="64"></lucide-icon>
+        </div>
       </div>
-      <h3 class="text-xl font-bold mb-2 text-gray-800">Perfil Personal</h3>
-      <p class="text-sm text-gray-600">
-        Personaliza tu perfil con foto, administra tu información y conecta con tu pareja.
-      </p>
+
+      <!-- Título principal con animación -->
+      <h1 class="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent animate-fade-in">
+        Pareja App
+      </h1>
+
+      <p class="text-2xl md:text-3xl text-white/90 mb-4 font-medium">Tu espacio para compartir</p>
+      <p class="text-xl text-white/80 mb-10 max-w-2xl mx-auto">Gestiona citas, metas y memorias especiales en un solo lugar</p>
+
+      <!-- Botones de acción mejorados -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+        <button
+          (click)="goToLogin()"
+          class="group relative px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-2xl hover:from-pink-600 hover:to-purple-700 transition-all shadow-2xl shadow-pink-500/50 hover:shadow-pink-500/70 hover:scale-105 overflow-hidden">
+          <span class="relative z-10 flex items-center gap-2">
+            Iniciar Sesión
+            <lucide-icon name="arrow-right" class="group-hover:translate-x-1 transition-transform" [size]="20"></lucide-icon>
+          </span>
+          <div class="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+        </button>
+
+        <button
+          (click)="goToRegister()"
+          class="group px-10 py-5 bg-white/95 backdrop-blur-xl text-gray-800 font-bold rounded-2xl hover:bg-white hover:scale-105 transition-all shadow-xl hover:shadow-2xl border-2 border-white/50">
+          <span class="flex items-center gap-2">
+            Registrarse Gratis
+            <lucide-icon name="sparkles" class="group-hover:rotate-12 transition-transform" [size]="20"></lucide-icon>
+          </span>
+        </button>
+      </div>
+
+      <!-- Badges de confianza -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white/80 border border-white/20 flex items-center gap-2">
+          <lucide-icon name="shield-check" [size]="16"></lucide-icon>
+          100% Seguro
+        </span>
+        <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white/80 border border-white/20 flex items-center gap-2">
+          <lucide-icon name="users" [size]="16"></lucide-icon>
+          Sincronización en pareja
+        </span>
+        <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white/80 border border-white/20 flex items-center gap-2">
+          <lucide-icon name="zap" [size]="16"></lucide-icon>
+          Gratis
+        </span>
+      </div>
     </div>
 
-    <!-- Citas -->
-    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 hover:scale-105 transition-transform">
-      <div class="mb-4">
-        <lucide-icon name="calendar" class="text-pink-500" [size]="36"></lucide-icon>
+    <!-- Grid de Funcionalidades mejorado -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
+      <!-- Perfil -->
+      <div class="group bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 hover:border-pink-200">
+        <div class="mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">
+          <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center">
+            <lucide-icon name="user" class="text-pink-500" [size]="32"></lucide-icon>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Perfil Personal</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Personaliza tu perfil con foto, administra tu información y conecta con tu pareja.
+        </p>
       </div>
-      <h3 class="text-xl font-bold mb-2 text-gray-800">Citas</h3>
-      <p class="text-sm text-gray-600">
-        Programa y organiza tus citas especiales. Mantén un registro de todos tus momentos juntos.
-      </p>
-    </div>
 
-    <!-- Metas -->
-    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 hover:scale-105 transition-transform">
-      <div class="mb-4">
-        <lucide-icon name="target" class="text-purple-500" [size]="36"></lucide-icon>
+      <!-- Citas -->
+      <div class="group bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 hover:border-pink-200">
+        <div class="mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">
+          <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center">
+            <lucide-icon name="calendar" class="text-pink-500" [size]="32"></lucide-icon>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Citas</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Programa y organiza tus citas especiales. Mantén un registro de todos tus momentos juntos.
+        </p>
       </div>
-      <h3 class="text-xl font-bold mb-2 text-gray-800">Metas en Pareja</h3>
-      <p class="text-sm text-gray-600">
-        Define objetivos y metas que quieren alcanzar juntos. Rastrea el progreso y celebra los logros.
-      </p>
-    </div>
 
-    <!-- Memorias -->
-    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 hover:scale-105 transition-transform">
-      <div class="mb-4">
-        <lucide-icon name="camera" class="text-indigo-500" [size]="36"></lucide-icon>
+      <!-- Metas -->
+      <div class="group bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 hover:border-purple-200">
+        <div class="mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">
+          <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center">
+            <lucide-icon name="target" class="text-purple-500" [size]="32"></lucide-icon>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Metas en Pareja</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Define objetivos y metas que quieren alcanzar juntos. Rastrea el progreso y celebra los logros.
+        </p>
       </div>
-      <h3 class="text-xl font-bold mb-2 text-gray-800">Memorias</h3>
-      <p class="text-sm text-gray-600">
-        Guarda tus fotos y momentos especiales. Crea un álbum compartido de sus recuerdos juntos.
-      </p>
-    </div>
 
-  </div>
-
-  <!-- Footer de Características -->
-  <div class="mt-12 text-center">
-    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-lg border border-white/20 max-w-2xl mx-auto">
-      <h3 class="text-lg font-bold mb-4 text-gray-800 flex items-center justify-center gap-2">
-        <lucide-icon name="sparkles" class="text-yellow-500" [size]="20"></lucide-icon>
-        Características
-      </h3>
-      <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
-        <div class="flex items-center gap-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-3">
-          <lucide-icon name="check" class="text-green-500" [size]="18"></lucide-icon>
-          <span class="font-medium">Sincronización en tiempo real</span>
+      <!-- Memorias -->
+      <div class="group bg-white/95 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 hover:border-indigo-200">
+        <div class="mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">
+          <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center">
+            <lucide-icon name="camera" class="text-indigo-500" [size]="32"></lucide-icon>
+          </div>
         </div>
-        <div class="flex items-center gap-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-3">
-          <lucide-icon name="check" class="text-green-500" [size]="18"></lucide-icon>
-          <span class="font-medium">Invitación a pareja</span>
-        </div>
-        <div class="flex items-center gap-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-3">
-          <lucide-icon name="check" class="text-green-500" [size]="18"></lucide-icon>
-          <span class="font-medium">Almacenamiento en la nube</span>
-        </div>
-        <div class="flex items-center gap-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-3">
-          <lucide-icon name="check" class="text-green-500" [size]="18"></lucide-icon>
-          <span class="font-medium">Interfaz intuitiva</span>
-        </div>
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Memorias</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Guarda tus fotos y momentos especiales. Crea un álbum compartido de sus recuerdos juntos.
+        </p>
       </div>
     </div>
   </div>

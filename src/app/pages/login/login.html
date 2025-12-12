@@ -14,7 +14,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="space-y-4">
         @if (errorMessage) {
           <div class="p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-400/50">
-            <p class="text-red-100 text-sm">{{ errorMessage }}</p>
+            <p class="text-red-500 text-sm">{{ errorMessage }}</p>
           </div>
         }
 
@@ -30,10 +30,10 @@
             @if (submitted && f['email'].errors) {
               <div class="mt-2">
                 @if (f['email'].errors['required']) {
-                  <p class="text-red-200 text-sm">El email es requerido</p>
+                  <p class="text-red-400 text-sm">El email es requerido</p>
                 }
                 @if (f['email'].errors['email']) {
-                  <p class="text-red-200 text-sm">El email no es válido</p>
+                  <p class="text-red-400 text-sm">El email no es válido</p>
                 }
               </div>
             }
@@ -51,13 +51,17 @@
               @if (submitted && f['password'].errors) {
                 <div class="mt-2">
                   @if (f['password'].errors['required']) {
-                    <p class="text-red-200 text-sm">La contraseña es requerida</p>
+                    <p class="text-red-400 text-sm">La contraseña es requerida</p>
                   }
                   @if (f['password'].errors['minlength']) {
-                    <p class="text-red-200 text-sm">La contraseña debe tener al menos 6 caracteres</p>
+                    <p class="text-red-400 text-sm">La contraseña debe tener al menos 6 caracteres</p>
                   }
                 </div>
               }
+            </div>
+
+            <div class="text-right mb-4">
+              <a routerLink="/solicitar-recuperacion" class="text-sm text-pink-500 hover:text-pink-600 transition-colors font-semibold">¿Olvidaste tu contraseña?</a>
             </div>
 
             <button
